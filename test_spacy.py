@@ -67,10 +67,10 @@ class SpacyAnalyzer:
         return text_dict, sentences_dict
 
 
-test = SpacyAnalyzer()
-
-sentence_struct_PP = test.spacy_sentence_dict("will study")
-for key, value in sentence_struct_PP.items():
-    print(key, value)
+# test = SpacyAnalyzer()
+# 
+# sentence_struct_PP = test.spacy_sentence_dict("will study")
+# for key, value in sentence_struct_PP.items():
+#     print(key, value)
 
 

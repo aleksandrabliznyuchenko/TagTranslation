@@ -1,0 +1,160 @@
+T1	Word_order 46 60	users Facebook
+#1	AnnotatorNotes T1	Facebook users
+T2	Punctuation 320 321	-
+A1	Delete T2
+T3	Noun_number 387 395	millions
+#2	AnnotatorNotes T3	million
+T4	Redundant_comp 288 302	of people were
+A2	Delete T4
+T5	Noun_number 279 287	millions
+#3	AnnotatorNotes T5	million
+T6	AT0 0 3	The
+#4	AnnotatorNotes T6	lemma = 'the'
+T7	NN1 4 7	bar
+#5	AnnotatorNotes T7	lemma = 'bar'
+T8	NN2 8 14	charts
+#6	AnnotatorNotes T8	lemma = 'chart'
+T9	VVB 15 19	show
+#7	AnnotatorNotes T9	lemma = 'show'
+T10	AT0 20 23	the
+#8	AnnotatorNotes T10	lemma = 'the'
+T11	NN1 24 30	number
+#9	AnnotatorNotes T11	lemma = 'number'
+T12	PRF 31 33	of
+#10	AnnotatorNotes T12	lemma = 'of'
+T13	CRD 34 42	millions
+#11	AnnotatorNotes T13	lemma = 'millions'
+T14	PRF 43 45	of
+#12	AnnotatorNotes T14	lemma = 'of'
+T15	NN2 46 51	users
+#13	AnnotatorNotes T15	lemma = 'user'
+T16	NN1 52 60	Facebook
+#14	AnnotatorNotes T16	lemma = 'Facebook'
+T17	PRP 61 65	over
+#15	AnnotatorNotes T17	lemma = 'over'
+T18	AT0 66 69	the
+#16	AnnotatorNotes T18	lemma = 'the'
+T19	NN1 70 76	period
+#17	AnnotatorNotes T19	lemma = 'period'
+T20	NP0 77 82	March
+#18	AnnotatorNotes T20	lemma = 'march'
+T21	CRD 83 87	2012
+#19	AnnotatorNotes T21	lemma = '2012'
+T22	PRP 88 90	to
+#20	AnnotatorNotes T22	lemma = 'to'
+T23	NP0 91 96	March
+#21	AnnotatorNotes T23	lemma = 'march'
+T24	CRD 97 101	2013
+#22	AnnotatorNotes T24	lemma = '2013'
+T25	CJC 102 105	and
+#23	AnnotatorNotes T25	lemma = 'and'
+T26	AJ0 106 110	main
+#24	AnnotatorNotes T26	lemma = 'main'
+T27	NN2 111 118	reasons
+#25	AnnotatorNotes T27	lemma = 'reason'
+T28	PRP 119 122	for
+#26	AnnotatorNotes T28	lemma = 'for'
+T29	VVG 123 128	using
+#27	AnnotatorNotes T29	lemma = 'use'
+T30	NN1 129 137	Facebook
+#28	AnnotatorNotes T30	lemma = 'Facebook'
+T31	PRP 138 141	for
+#29	AnnotatorNotes T31	lemma = 'for'
+T32	NN2 142 145	men
+#30	AnnotatorNotes T32	lemma = 'man'
+T33	CJC 146 149	and
+#31	AnnotatorNotes T33	lemma = 'and'
+T34	NN2 150 155	women
+#32	AnnotatorNotes T34	lemma = 'woman'
+T35	SENT 155 156	.
+#33	AnnotatorNotes T35	lemma = '.'
+T36	PNP 157 159	It
+#34	AnnotatorNotes T36	lemma = 'it'
+T37	VBZ 160 162	is
+#35	AnnotatorNotes T37	lemma = 'be'
+T38	AJ0 163 170	evident
+#36	AnnotatorNotes T38	lemma = 'evident'
+T39	PRP 171 175	from
+#37	AnnotatorNotes T39	lemma = 'from'
+T40	AT0 176 179	the
+#38	AnnotatorNotes T40	lemma = 'the'
+T41	NN2 180 186	charts
+#39	AnnotatorNotes T41	lemma = 'chart'
+T42	CJT 187 191	that
+#40	AnnotatorNotes T42	lemma = 'that'
+T43	DT0 192 196	most
+#41	AnnotatorNotes T43	lemma = 'most'
+T44	NN2 197 202	users
+#42	AnnotatorNotes T44	lemma = 'user'
+T45	VVB 203 208	visit
+#43	AnnotatorNotes T45	lemma = 'visit'
+T46	NN1 209 217	Facebook
+#44	AnnotatorNotes T46	lemma = 'Facebook'
+T47	VVG 218 223	using
+#45	AnnotatorNotes T47	lemma = 'use'
+T48	DPS 224 229	their
+#46	AnnotatorNotes T48	lemma = 'they'
+T49	NN1 230 237	desktop
+#47	AnnotatorNotes T49	lemma = 'desktop'
+T50	TO0 238 240	to
+#48	AnnotatorNotes T50	lemma = 'to'
+T51	VVI 241 246	share
+#49	AnnotatorNotes T51	lemma = 'share'
+T52	NN2 247 253	photos
+#50	AnnotatorNotes T52	lemma = 'photo'
+T53	CJC 254 256	or
+#51	AnnotatorNotes T53	lemma = 'or'
+T54	NN2 257 263	videos
+#52	AnnotatorNotes T54	lemma = 'video'
+T55	SENT 263 264	.
+#53	AnnotatorNotes T55	lemma = '.'
+T56	AV0 265 269	More
+#54	AnnotatorNotes T56	lemma = 'more'
+T57	CJS 270 274	than
+#55	AnnotatorNotes T57	lemma = 'than'
+T58	CRD 275 278	140
+#56	AnnotatorNotes T58	lemma = '140'
+T59	CRD 279 287	millions
+#57	AnnotatorNotes T59	lemma = 'millions'
+T60	PRF 288 290	of
+#58	AnnotatorNotes T60	lemma = 'of'
+T61	NN0 291 297	people
+#59	AnnotatorNotes T61	lemma = 'people'
+T62	VBD 298 302	were
+#60	AnnotatorNotes T62	lemma = 'be'
+T63	AJ0 303 311	Facebook
+#61	AnnotatorNotes T63	lemma = 'Facebook'
+T64	NN1 312 319	desktop
+#62	AnnotatorNotes T64	lemma = 'desktop'
+T65	PUN 320 321	-
+#63	AnnotatorNotes T65	lemma = '-'
+T66	NN2 322 327	users
+#64	AnnotatorNotes T66	lemma = 'user'
+T67	PRP 328 330	in
+#65	AnnotatorNotes T67	lemma = 'in'
+T68	CRD 331 335	2013
+#66	AnnotatorNotes T68	lemma = '2013'
+T69	CJC 336 339	and
+#67	AnnotatorNotes T69	lemma = 'and'
+T70	DT0 340 344	this
+#68	AnnotatorNotes T70	lemma = 'this'
+T71	NN1 345 350	count
+#69	AnnotatorNotes T71	lemma = 'count'
+T72	PRF 351 353	of
+#70	AnnotatorNotes T72	lemma = 'of'
+T73	NN0 354 360	people
+#71	AnnotatorNotes T73	lemma = 'people'
+T74	VVN 361 370	decreased
+#72	AnnotatorNotes T74	lemma = 'decrease'
+T75	PRP 371 373	to
+#73	AnnotatorNotes T75	lemma = 'to'
+T76	AV0 374 378	more
+#74	AnnotatorNotes T76	lemma = 'more'
+T77	CJS 379 383	than
+#75	AnnotatorNotes T77	lemma = 'than'
+T78	CRD 384 386	50
+#76	AnnotatorNotes T78	lemma = '50'
+T79	CRD 387 395	millions
+#77	AnnotatorNotes T79	lemma = 'millions'
+T80	SENT 395 396	.
+#78	AnnotatorNotes T80	lemma = '.'

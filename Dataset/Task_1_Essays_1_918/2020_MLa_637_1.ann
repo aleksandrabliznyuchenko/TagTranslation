@@ -1,0 +1,634 @@
+T1	vocab 114 121	factors
+#1	AnnotatorNotes T1	reasons
+T2	Noun_number 277 284	desktop
+#2	AnnotatorNotes T2	desktops
+T3	Noun_number 343 348	phone
+#3	AnnotatorNotes T3	phones
+T4	Articles 381 390	the women
+#314	AnnotatorNotes T4	women
+T5	Spelling 391 398	prefere
+#4	AnnotatorNotes T5	prefer
+T6	vocab 406 414	Facebook
+#5	AnnotatorNotes T6	Facebook mostly
+T7	vocab 434 440	mostly
+A2	Delete T7
+T8	vocab 518 525	sharing
+#6	AnnotatorNotes T8	share
+T9	vocab 537 546	receiving
+#7	AnnotatorNotes T9	receive
+T10	Spelling 576 582	thends
+#8	AnnotatorNotes T10	trends
+T11	gram 621 631	falling of
+#9	AnnotatorNotes T11	the fall in
+T12	gram 636 642	number
+#10	AnnotatorNotes T12	number of
+T13	spell 659 666	dekstop
+#11	AnnotatorNotes T13	desktops
+T14	Articles 671 708	the 2012 it was 150 millions of users
+#315	AnnotatorNotes T14	2012 it was 150 millions of users
+T15	disc 680 686	it was
+#12	AnnotatorNotes T15	there were
+T16	gram 691 702	millions of
+#13	AnnotatorNotes T16	million
+T17	gram 713 715	to
+#14	AnnotatorNotes T17	by
+T18	gram 753 761	millions
+#15	AnnotatorNotes T18	million
+T19	Noun_number 814 819	phone
+#16	AnnotatorNotes T19	phones
+T20	gram 834 836	to
+#17	AnnotatorNotes T20	in
+T21	Spelling 973 980	prefere
+#18	AnnotatorNotes T21	prefer
+T22	comp 1105 1109	uses
+#19	AnnotatorNotes T22	use
+T23	Articles 1132 1140	the ways
+#316	AnnotatorNotes T23	ways
+T24	Spelling 1191 1198	prefere
+#20	AnnotatorNotes T24	prefer
+T25	DT0 0 5	These
+#21	AnnotatorNotes T25	lemma = 'these'
+T26	NN2 6 12	charts
+#22	AnnotatorNotes T26	lemma = 'chart'
+T27	VVB 13 19	depict
+#23	AnnotatorNotes T27	lemma = 'depict'
+T28	AT0 20 23	the
+#24	AnnotatorNotes T28	lemma = 'the'
+T29	NN2 24 35	differences
+#25	AnnotatorNotes T29	lemma = 'difference'
+T30	PRP 36 38	in
+#26	AnnotatorNotes T30	lemma = 'in'
+T31	AT0 39 42	the
+#27	AnnotatorNotes T31	lemma = 'the'
+T32	NN1 43 46	use
+#28	AnnotatorNotes T32	lemma = 'use'
+T33	PRF 47 49	of
+#29	AnnotatorNotes T33	lemma = 'of'
+T34	NN1 50 58	Facebook
+#30	AnnotatorNotes T34	lemma = 'Facebook'
+T35	PRP 59 61	by
+#31	AnnotatorNotes T35	lemma = 'by'
+T36	NN2 62 65	men
+#32	AnnotatorNotes T36	lemma = 'man'
+T37	CJC 66 69	and
+#33	AnnotatorNotes T37	lemma = 'and'
+T38	NN2 70 75	women
+#34	AnnotatorNotes T38	lemma = 'woman'
+T39	PRP 76 80	from
+#35	AnnotatorNotes T39	lemma = 'from'
+T40	CRD 81 85	2012
+#36	AnnotatorNotes T40	lemma = '2012'
+T41	PRP 86 88	to
+#37	AnnotatorNotes T41	lemma = 'to'
+T42	CRD 89 93	2013
+#38	AnnotatorNotes T42	lemma = '2013'
+T43	CJC 94 97	and
+#39	AnnotatorNotes T43	lemma = 'and'
+T44	VVB 98 102	give
+#40	AnnotatorNotes T44	lemma = 'give'
+T45	PNP 103 105	us
+#41	AnnotatorNotes T45	lemma = 'we'
+T46	DT0 106 113	several
+#42	AnnotatorNotes T46	lemma = 'several'
+T47	NN2 114 121	factors
+#43	AnnotatorNotes T47	lemma = 'factor'
+T48	AVQ 122 125	why
+#44	AnnotatorNotes T48	lemma = 'why'
+T49	PNP 126 130	they
+#45	AnnotatorNotes T49	lemma = 'they'
+T50	VVD 131 135	used
+#46	AnnotatorNotes T50	lemma = 'use|used'
+T51	PNP 136 138	it
+#47	AnnotatorNotes T51	lemma = 'it'
+T52	SENT 138 139	.
+#48	AnnotatorNotes T52	lemma = '.'
+T53	AV0 140 147	Overall
+#49	AnnotatorNotes T53	lemma = 'overall'
+T54	PUN 147 148	,
+#50	AnnotatorNotes T54	lemma = ','
+T55	CJS 149 151	as
+#51	AnnotatorNotes T55	lemma = 'as'
+T56	VM0 152 155	can
+#52	AnnotatorNotes T56	lemma = 'can'
+T57	VBI 156 158	be
+#53	AnnotatorNotes T57	lemma = 'be'
+T58	VVN 159 163	seen
+#54	AnnotatorNotes T58	lemma = 'see'
+T59	PRP 164 168	from
+#55	AnnotatorNotes T59	lemma = 'from'
+T60	AT0 169 172	the
+#56	AnnotatorNotes T60	lemma = 'the'
+T61	NN1 173 178	chart
+#57	AnnotatorNotes T61	lemma = 'chart'
+T62	PUN 178 179	,
+#58	AnnotatorNotes T62	lemma = ','
+T63	EX0 180 185	there
+#59	AnnotatorNotes T63	lemma = 'there'
+T64	VBZ 186 188	is
+#60	AnnotatorNotes T64	lemma = 'be'
+T65	AT0 189 190	a
+#61	AnnotatorNotes T65	lemma = 'a'
+T66	NN1 191 197	change
+#62	AnnotatorNotes T66	lemma = 'change'
+T67	PRP 198 200	in
+#63	AnnotatorNotes T67	lemma = 'in'
+T68	NN2 201 208	gadgets
+#64	AnnotatorNotes T68	lemma = 'gadget'
+T69	VVN 209 213	used
+#65	AnnotatorNotes T69	lemma = 'use|used'
+T70	PRP 214 217	for
+#66	AnnotatorNotes T70	lemma = 'for'
+T71	VVG 218 226	spending
+#67	AnnotatorNotes T71	lemma = 'spend|spending'
+T72	NN1 227 231	time
+#68	AnnotatorNotes T72	lemma = 'time'
+T73	PRP 232 236	with
+#69	AnnotatorNotes T73	lemma = 'with'
+T74	NN1 237 245	Facebook
+#70	AnnotatorNotes T74	lemma = 'Facebook'
+T75	SENT 245 246	.
+#71	AnnotatorNotes T75	lemma = '.'
+T76	AT0 247 250	The
+#72	AnnotatorNotes T76	lemma = 'the'
+T77	NN1 251 257	number
+#73	AnnotatorNotes T77	lemma = 'number'
+T78	PRF 258 260	of
+#74	AnnotatorNotes T78	lemma = 'of'
+T79	NN0 261 267	people
+#75	AnnotatorNotes T79	lemma = 'people'
+T80	PNQ 268 271	who
+#76	AnnotatorNotes T80	lemma = 'who'
+T81	VVZ 272 276	uses
+#77	AnnotatorNotes T81	lemma = 'use'
+T82	NN1 277 284	desktop
+#78	AnnotatorNotes T82	lemma = 'desktop'
+T83	VHD 285 288	had
+#79	AnnotatorNotes T83	lemma = 'have'
+T84	VVN 289 298	decreased
+#80	AnnotatorNotes T84	lemma = 'decrease'
+T85	AV0 299 311	dramatically
+#81	AnnotatorNotes T85	lemma = 'dramatically'
+T86	PRP 312 314	to
+#82	AnnotatorNotes T86	lemma = 'to'
+T87	CRD 315 319	2013
+#83	AnnotatorNotes T87	lemma = '2013'
+T88	CJC 320 323	and
+#84	AnnotatorNotes T88	lemma = 'and'
+T89	AT0 324 327	the
+#85	AnnotatorNotes T89	lemma = 'the'
+T90	NN1 328 332	role
+#86	AnnotatorNotes T90	lemma = 'role'
+T91	PRF 333 335	of
+#87	AnnotatorNotes T91	lemma = 'of'
+T92	AJ0 336 342	mobile
+#88	AnnotatorNotes T92	lemma = 'mobile'
+T93	NN1 343 348	phone
+#89	AnnotatorNotes T93	lemma = 'phone'
+T94	VHD 349 352	had
+#90	AnnotatorNotes T94	lemma = 'have'
+T95	VVN 353 358	risen
+#91	AnnotatorNotes T95	lemma = 'rise'
+T96	SENT 358 359	.
+#92	AnnotatorNotes T96	lemma = '.'
+T97	AV0 360 364	Also
+#93	AnnotatorNotes T97	lemma = 'also'
+T98	PUN 364 365	,
+#94	AnnotatorNotes T98	lemma = ','
+T99	CJS 366 368	as
+#95	AnnotatorNotes T99	lemma = 'as'
+T100	PNP 369 371	we
+#96	AnnotatorNotes T100	lemma = 'we'
+T101	VM0 372 375	can
+#97	AnnotatorNotes T101	lemma = 'can'
+T102	VVI 376 379	see
+#98	AnnotatorNotes T102	lemma = 'see'
+T103	PUN 379 380	,
+#99	AnnotatorNotes T103	lemma = ','
+T104	AT0 381 384	the
+#100	AnnotatorNotes T104	lemma = 'the'
+T105	NN2 385 390	women
+#101	AnnotatorNotes T105	lemma = 'woman'
+T106	AJ0 391 398	prefere
+#102	AnnotatorNotes T106	lemma = 'prefere'
+T107	TO0 399 401	to
+#103	AnnotatorNotes T107	lemma = 'to'
+T108	VVI 402 405	use
+#104	AnnotatorNotes T108	lemma = 'use'
+T109	NN1 406 414	Facebook
+#105	AnnotatorNotes T109	lemma = 'Facebook'
+T110	PRP 415 418	for
+#106	AnnotatorNotes T110	lemma = 'for'
+T111	VVG 419 426	sharing
+#107	AnnotatorNotes T111	lemma = 'share|sharing'
+T112	NN2 427 433	photos
+#108	AnnotatorNotes T112	lemma = 'photo'
+T113	AV0 434 440	mostly
+#109	AnnotatorNotes T113	lemma = 'mostly'
+T114	CJC 441 444	and
+#110	AnnotatorNotes T114	lemma = 'and'
+T115	VVG 445 451	seeing
+#111	AnnotatorNotes T115	lemma = 'see|seeing'
+T116	DT0 452 456	some
+#112	AnnotatorNotes T116	lemma = 'some'
+T117	AJ0 457 462	funny
+#113	AnnotatorNotes T117	lemma = 'funny'
+T118	NN2 463 468	posts
+#114	AnnotatorNotes T118	lemma = 'post'
+T119	CJS 469 474	while
+#115	AnnotatorNotes T119	lemma = 'while'
+T120	NN2 475 478	men
+#116	AnnotatorNotes T120	lemma = 'man'
+T121	VBB 479 482	are
+#117	AnnotatorNotes T121	lemma = 'be'
+T122	AJ0 483 489	likely
+#118	AnnotatorNotes T122	lemma = 'likely'
+T123	TO0 490 492	to
+#119	AnnotatorNotes T123	lemma = 'to'
+T124	VVI 493 496	use
+#120	AnnotatorNotes T124	lemma = 'use'
+T125	NN1 497 505	Facebook
+#121	AnnotatorNotes T125	lemma = 'Facebook'
+T126	PRP 506 508	in
+#122	AnnotatorNotes T126	lemma = 'in'
+T127	NN1 509 514	order
+#123	AnnotatorNotes T127	lemma = 'order'
+T128	PRP 515 517	to
+#124	AnnotatorNotes T128	lemma = 'to'
+T129	VVG 518 525	sharing
+#125	AnnotatorNotes T129	lemma = 'share|sharing'
+T130	NN2 526 532	photos
+#126	AnnotatorNotes T130	lemma = 'photo'
+T131	CJC 533 536	and
+#127	AnnotatorNotes T131	lemma = 'and'
+T132	VVG 537 546	receiving
+#128	AnnotatorNotes T132	lemma = 'receive|receiving'
+T133	NN2 547 554	updates
+#129	AnnotatorNotes T133	lemma = 'update'
+T134	SENT 554 555	.
+#130	AnnotatorNotes T134	lemma = '.'
+T135	AT0 556 559	The
+#131	AnnotatorNotes T135	lemma = 'the'
+T136	NN1 560 565	chart
+#132	AnnotatorNotes T136	lemma = 'chart'
+T137	VVZ 566 571	shows
+#133	AnnotatorNotes T137	lemma = 'show'
+T138	CRD 572 575	two
+#134	AnnotatorNotes T138	lemma = 'two'
+T139	NN2 576 582	thends
+#135	AnnotatorNotes T139	lemma = 'thends'
+T140	PRP 583 585	in
+#136	AnnotatorNotes T140	lemma = 'in'
+T141	VVG 586 591	using
+#137	AnnotatorNotes T141	lemma = 'use'
+T142	NN1 592 600	Facebook
+#138	AnnotatorNotes T142	lemma = 'Facebook'
+T143	SENT 600 601	.
+#139	AnnotatorNotes T143	lemma = '.'
+T144	AT0 602 605	The
+#140	AnnotatorNotes T144	lemma = 'the'
+T145	ORD 606 611	first
+#141	AnnotatorNotes T145	lemma = 'first'
+T146	NN1 612 617	trend
+#142	AnnotatorNotes T146	lemma = 'trend'
+T147	VBZ 618 620	is
+#143	AnnotatorNotes T147	lemma = 'be'
+T148	VVG 621 628	falling
+#144	AnnotatorNotes T148	lemma = 'fall|falling'
+T149	PRF 629 631	of
+#145	AnnotatorNotes T149	lemma = 'of'
+T150	AT0 632 635	the
+#146	AnnotatorNotes T150	lemma = 'the'
+T151	NN1 636 642	number
+#147	AnnotatorNotes T151	lemma = 'number'
+T152	NN0 643 649	people
+#148	AnnotatorNotes T152	lemma = 'people'
+T153	PNQ 650 653	who
+#149	AnnotatorNotes T153	lemma = 'who'
+T154	VVD 654 658	used
+#150	AnnotatorNotes T154	lemma = 'use|used'
+T155	AJ0 659 666	dekstop
+#151	AnnotatorNotes T155	lemma = 'dekstop'
+T156	SENT 666 667	.
+#152	AnnotatorNotes T156	lemma = '.'
+T157	PRP 668 670	In
+#153	AnnotatorNotes T157	lemma = 'in'
+T158	AT0 671 674	the
+#154	AnnotatorNotes T158	lemma = 'the'
+T159	CRD 675 679	2012
+#155	AnnotatorNotes T159	lemma = '2012'
+T160	PNP 680 682	it
+#156	AnnotatorNotes T160	lemma = 'it'
+T161	VBD 683 686	was
+#157	AnnotatorNotes T161	lemma = 'be'
+T162	CRD 687 690	150
+#158	AnnotatorNotes T162	lemma = '150'
+T163	CRD 691 699	millions
+#159	AnnotatorNotes T163	lemma = 'millions'
+T164	PRF 700 702	of
+#160	AnnotatorNotes T164	lemma = 'of'
+T165	NN2 703 708	users
+#161	AnnotatorNotes T165	lemma = 'user'
+T166	CJC 709 712	and
+#162	AnnotatorNotes T166	lemma = 'and'
+T167	PRP 713 715	to
+#163	AnnotatorNotes T167	lemma = 'to'
+T168	AT0 716 719	the
+#164	AnnotatorNotes T168	lemma = 'the'
+T169	NN1 720 723	end
+#165	AnnotatorNotes T169	lemma = 'end'
+T170	PRF 724 726	of
+#166	AnnotatorNotes T170	lemma = 'of'
+T171	CRD 727 731	2013
+#167	AnnotatorNotes T171	lemma = '2013'
+T172	PNP 732 734	it
+#168	AnnotatorNotes T172	lemma = 'it'
+T173	VVD 735 739	made
+#169	AnnotatorNotes T173	lemma = 'make'
+T174	AVP 740 742	up
+#170	AnnotatorNotes T174	lemma = 'up'
+T175	AV0 743 749	nearly
+#171	AnnotatorNotes T175	lemma = 'nearly'
+T176	CRD 750 752	55
+#172	AnnotatorNotes T176	lemma = '55'
+T177	CRD 753 761	millions
+#173	AnnotatorNotes T177	lemma = 'millions'
+T178	SENT 761 762	.
+#174	AnnotatorNotes T178	lemma = '.'
+T179	CJS 763 765	As
+#175	AnnotatorNotes T179	lemma = 'as'
+T180	PRP 766 769	for
+#176	AnnotatorNotes T180	lemma = 'for'
+T181	AT0 770 773	the
+#177	AnnotatorNotes T181	lemma = 'the'
+T182	ORD 774 780	second
+#178	AnnotatorNotes T182	lemma = 'second'
+T183	NN1 781 786	trend
+#179	AnnotatorNotes T183	lemma = 'trend'
+T184	PNP 787 789	we
+#180	AnnotatorNotes T184	lemma = 'we'
+T185	VVB 790 793	see
+#181	AnnotatorNotes T185	lemma = 'see'
+T186	PUN 793 794	,
+#182	AnnotatorNotes T186	lemma = ','
+T187	AT0 795 798	the
+#183	AnnotatorNotes T187	lemma = 'the'
+T188	NN1 799 803	role
+#184	AnnotatorNotes T188	lemma = 'role'
+T189	PRF 804 806	of
+#185	AnnotatorNotes T189	lemma = 'of'
+T190	AJ0 807 813	mobile
+#186	AnnotatorNotes T190	lemma = 'mobile'
+T191	NN1 814 819	phone
+#187	AnnotatorNotes T191	lemma = 'phone'
+T192	VVD 820 826	became
+#188	AnnotatorNotes T192	lemma = 'become'
+T193	AJC 827 833	bigger
+#189	AnnotatorNotes T193	lemma = 'big'
+T194	PRP 834 836	to
+#190	AnnotatorNotes T194	lemma = 'to'
+T195	CRD 837 841	2013
+#191	AnnotatorNotes T195	lemma = '2013'
+T196	PUN 842 843	-
+#192	AnnotatorNotes T196	lemma = '-'
+T197	DT0 844 848	this
+#193	AnnotatorNotes T197	lemma = 'this'
+T198	NN1 849 855	gadget
+#194	AnnotatorNotes T198	lemma = 'gadget'
+T199	VBD 856 859	was
+#195	AnnotatorNotes T199	lemma = 'be'
+T200	VVN 860 864	used
+#196	AnnotatorNotes T200	lemma = 'use|used'
+T201	PRP 865 867	by
+#197	AnnotatorNotes T201	lemma = 'by'
+T202	CRD 868 870	95
+#198	AnnotatorNotes T202	lemma = '95'
+T203	NN2 871 876	users
+#199	AnnotatorNotes T203	lemma = 'user'
+T204	PRP 877 879	in
+#200	AnnotatorNotes T204	lemma = 'in'
+T205	DT0 880 884	this
+#201	AnnotatorNotes T205	lemma = 'this'
+T206	NN1 885 889	year
+#202	AnnotatorNotes T206	lemma = 'year'
+T207	CJS 890 895	while
+#203	AnnotatorNotes T207	lemma = 'while'
+T208	PRP 896 898	in
+#204	AnnotatorNotes T208	lemma = 'in'
+T209	CRD 899 903	2012
+#205	AnnotatorNotes T209	lemma = '2012'
+T210	AT0 904 907	the
+#206	AnnotatorNotes T210	lemma = 'the'
+T211	NN1 908 914	number
+#207	AnnotatorNotes T211	lemma = 'number'
+T212	VBD 915 918	was
+#208	AnnotatorNotes T212	lemma = 'be'
+T213	CRD 919 921	55
+#209	AnnotatorNotes T213	lemma = '55'
+T214	SENT 921 922	.
+#210	AnnotatorNotes T214	lemma = '.'
+T215	AV0 923 927	Also
+#211	AnnotatorNotes T215	lemma = 'also'
+T216	PUN 927 928	,
+#212	AnnotatorNotes T216	lemma = ','
+T217	PNP 929 931	we
+#213	AnnotatorNotes T217	lemma = 'we'
+T218	VM0 932 935	can
+#214	AnnotatorNotes T218	lemma = 'can'
+T219	VVI 936 939	see
+#215	AnnotatorNotes T219	lemma = 'see'
+T220	PRP 940 944	from
+#216	AnnotatorNotes T220	lemma = 'from'
+T221	AT0 945 948	the
+#217	AnnotatorNotes T221	lemma = 'the'
+T222	NN1 949 954	chart
+#218	AnnotatorNotes T222	lemma = 'chart'
+T223	CJT 955 959	that
+#219	AnnotatorNotes T223	lemma = 'that'
+T224	CRD 960 962	54
+#220	AnnotatorNotes T224	lemma = '54'
+T225	NN0 962 963	%
+#221	AnnotatorNotes T225	lemma = '%'
+T226	PRF 964 966	of
+#222	AnnotatorNotes T226	lemma = 'of'
+T227	NN2 967 972	women
+#223	AnnotatorNotes T227	lemma = 'woman'
+T228	AJ0 973 980	prefere
+#224	AnnotatorNotes T228	lemma = 'prefere'
+T229	TO0 981 983	to
+#225	AnnotatorNotes T229	lemma = 'to'
+T230	VVI 984 987	use
+#226	AnnotatorNotes T230	lemma = 'use'
+T231	NN1 988 996	Facebook
+#227	AnnotatorNotes T231	lemma = 'Facebook'
+T232	PRP 997 999	in
+#228	AnnotatorNotes T232	lemma = 'in'
+T233	NN1 1000 1005	order
+#229	AnnotatorNotes T233	lemma = 'order'
+T234	TO0 1006 1008	to
+#230	AnnotatorNotes T234	lemma = 'to'
+T235	VVI 1009 1014	share
+#231	AnnotatorNotes T235	lemma = 'share'
+T236	AT0 1015 1018	the
+#232	AnnotatorNotes T236	lemma = 'the'
+T237	NN2 1019 1025	photos
+#233	AnnotatorNotes T237	lemma = 'photo'
+T238	CJC 1026 1029	and
+#234	AnnotatorNotes T238	lemma = 'and'
+T239	CRD 1030 1032	39
+#235	AnnotatorNotes T239	lemma = '39'
+T240	NN0 1032 1033	%
+#236	AnnotatorNotes T240	lemma = '%'
+T241	PRF 1034 1036	of
+#237	AnnotatorNotes T241	lemma = 'of'
+T242	PNP 1037 1041	them
+#238	AnnotatorNotes T242	lemma = 'they'
+T243	VVD 1042 1046	used
+#239	AnnotatorNotes T243	lemma = 'use|used'
+T244	PNP 1047 1049	it
+#240	AnnotatorNotes T244	lemma = 'it'
+T245	PRP 1050 1053	for
+#241	AnnotatorNotes T245	lemma = 'for'
+T246	VVG 1054 1060	seeing
+#242	AnnotatorNotes T246	lemma = 'see|seeing'
+T247	DT0 1061 1065	some
+#243	AnnotatorNotes T247	lemma = 'some'
+T248	AJ0 1066 1071	funny
+#244	AnnotatorNotes T248	lemma = 'funny'
+T249	NN2 1072 1077	posts
+#245	AnnotatorNotes T249	lemma = 'post'
+T250	SENT 1077 1078	.
+#246	AnnotatorNotes T250	lemma = '.'
+T251	AT0 1079 1082	The
+#247	AnnotatorNotes T251	lemma = 'the'
+T252	DT0 1083 1088	least
+#248	AnnotatorNotes T252	lemma = 'least'
+T253	NN1 1089 1095	number
+#249	AnnotatorNotes T253	lemma = 'number'
+T254	PRF 1096 1098	of
+#250	AnnotatorNotes T254	lemma = 'of'
+T255	NN2 1099 1104	women
+#251	AnnotatorNotes T255	lemma = 'woman'
+T256	VVZ 1105 1109	uses
+#252	AnnotatorNotes T256	lemma = 'use'
+T257	PNP 1110 1112	it
+#253	AnnotatorNotes T257	lemma = 'it'
+T258	PRP 1113 1116	for
+#254	AnnotatorNotes T258	lemma = 'for'
+T259	VVG 1117 1125	learning
+#255	AnnotatorNotes T259	lemma = 'learn|learning'
+T260	PRP 1126 1131	about
+#256	AnnotatorNotes T260	lemma = 'about'
+T261	AT0 1132 1135	the
+#257	AnnotatorNotes T261	lemma = 'the'
+T262	NN2 1136 1140	ways
+#258	AnnotatorNotes T262	lemma = 'way'
+T263	TO0 1141 1143	to
+#259	AnnotatorNotes T263	lemma = 'to'
+T264	VVI 1144 1148	help
+#260	AnnotatorNotes T264	lemma = 'help'
+T265	NN2 1149 1155	others
+#261	AnnotatorNotes T265	lemma = 'other'
+T266	PUL 1156 1157	(
+#262	AnnotatorNotes T266	lemma = '('
+T267	CRD 1157 1159	35
+#263	AnnotatorNotes T267	lemma = '35'
+T268	NN0 1159 1160	%
+#264	AnnotatorNotes T268	lemma = '%'
+T269	PUR 1160 1161	)
+#265	AnnotatorNotes T269	lemma = ')'
+T270	SENT 1161 1162	.
+#266	AnnotatorNotes T270	lemma = '.'
+T271	CJS 1163 1165	As
+#267	AnnotatorNotes T271	lemma = 'as'
+T272	PRP 1166 1169	for
+#268	AnnotatorNotes T272	lemma = 'for'
+T273	AT0 1170 1173	the
+#269	AnnotatorNotes T273	lemma = 'the'
+T274	NN2 1174 1177	men
+#270	AnnotatorNotes T274	lemma = 'man'
+T275	PUN 1177 1178	,
+#271	AnnotatorNotes T275	lemma = ','
+T276	PNP 1179 1183	they
+#272	AnnotatorNotes T276	lemma = 'they'
+T277	AV0 1184 1190	mostly
+#273	AnnotatorNotes T277	lemma = 'mostly'
+T278	VVB 1191 1198	prefere
+#274	AnnotatorNotes T278	lemma = 'prefere'
+T279	VVG 1199 1204	using
+#275	AnnotatorNotes T279	lemma = 'use'
+T280	NN1 1205 1213	Facebook
+#276	AnnotatorNotes T280	lemma = 'Facebook'
+T281	TO0 1214 1216	to
+#277	AnnotatorNotes T281	lemma = 'to'
+T282	VVI 1217 1222	share
+#278	AnnotatorNotes T282	lemma = 'share'
+T283	AT0 1223 1226	the
+#279	AnnotatorNotes T283	lemma = 'the'
+T284	NN2 1227 1233	photos
+#280	AnnotatorNotes T284	lemma = 'photo'
+T285	PUL 1234 1235	(
+#281	AnnotatorNotes T285	lemma = '('
+T286	CRD 1235 1237	39
+#282	AnnotatorNotes T286	lemma = '39'
+T287	NN0 1237 1238	%
+#283	AnnotatorNotes T287	lemma = '%'
+T288	PUR 1238 1239	)
+#284	AnnotatorNotes T288	lemma = ')'
+T289	CJC 1240 1243	and
+#285	AnnotatorNotes T289	lemma = 'and'
+T290	AT0 1244 1247	the
+#286	AnnotatorNotes T290	lemma = 'the'
+T291	DT0 1248 1252	same
+#287	AnnotatorNotes T291	lemma = 'same'
+T292	NN1 1253 1263	percentage
+#288	AnnotatorNotes T292	lemma = 'percentage'
+T293	PRF 1264 1266	of
+#289	AnnotatorNotes T293	lemma = 'of'
+T294	PNP 1267 1271	them
+#290	AnnotatorNotes T294	lemma = 'they'
+T295	VVZ 1272 1276	uses
+#291	AnnotatorNotes T295	lemma = 'use'
+T296	NN1 1277 1285	Facebook
+#292	AnnotatorNotes T296	lemma = 'Facebook'
+T297	PRP 1286 1288	in
+#293	AnnotatorNotes T297	lemma = 'in'
+T298	NN1 1289 1294	order
+#294	AnnotatorNotes T298	lemma = 'order'
+T299	TO0 1295 1297	to
+#295	AnnotatorNotes T299	lemma = 'to'
+T300	VVI 1298 1305	receive
+#296	AnnotatorNotes T300	lemma = 'receive'
+T301	NN2 1306 1313	updates
+#297	AnnotatorNotes T301	lemma = 'update'
+T302	SENT 1313 1314	.
+#298	AnnotatorNotes T302	lemma = '.'
+T303	AV0 1315 1319	Only
+#299	AnnotatorNotes T303	lemma = 'only'
+T304	CRD 1320 1322	25
+#300	AnnotatorNotes T304	lemma = '25'
+T305	NN0 1322 1323	%
+#301	AnnotatorNotes T305	lemma = '%'
+T306	PRF 1324 1326	of
+#302	AnnotatorNotes T306	lemma = 'of'
+T307	NN2 1327 1330	men
+#303	AnnotatorNotes T307	lemma = 'man'
+T308	VVB 1331 1334	use
+#304	AnnotatorNotes T308	lemma = 'use'
+T309	NN1 1335 1343	Facebook
+#305	AnnotatorNotes T309	lemma = 'Facebook'
+T310	TO0 1344 1346	to
+#306	AnnotatorNotes T310	lemma = 'to'
+T311	VVI 1347 1352	learn
+#307	AnnotatorNotes T311	lemma = 'learn'
+T312	PRP 1353 1358	about
+#308	AnnotatorNotes T312	lemma = 'about'
+T313	NN2 1359 1363	ways
+#309	AnnotatorNotes T313	lemma = 'way'
+T314	TO0 1364 1366	to
+#310	AnnotatorNotes T314	lemma = 'to'
+T315	VVI 1367 1371	help
+#311	AnnotatorNotes T315	lemma = 'help'
+T316	NN2 1372 1378	others
+#312	AnnotatorNotes T316	lemma = 'other'
+T317	SENT 1378 1379	.
+#313	AnnotatorNotes T317	lemma = '.'

@@ -49,30 +49,42 @@ def fill_result_file(errors_with_tags, filename, folder, ann_file):
                         line_parts = line.split('\t')
                         tag_parts = line_parts[1].split()
                         if len(errors_with_tags[error_id]) != 0:
-                            # tag_parts[0] = ', '.join(errors_with_tags[error_id])
-                            tag_parts[0] = tag_parts[0] + ', '.join(errors_with_tags[error_id])
+                            if tag_parts[0] == "Capitalisation":
+                                tag_parts[0] = tag_parts[0] + ', ' + ', '.join(errors_with_tags[error_id])
+                            else:
+                                tag_parts[0] = ', '.join(errors_with_tags[error_id])
                         new_tag_parts = ' '.join(tag_parts)
                         line_parts[1] = new_tag_parts
                         line = '\t'.join(line_parts)
                     result.write(line)
     else:
-        with open(result_filename, 'r+', encoding='utf-8') as result:
+        new_lines = ''
+        with open(result_filename, 'r', encoding='utf-8') as result:
             lines = result.readlines()
             for i, line in enumerate(lines):
                 if i > max_error:
-                    result.write(line)
+                    #result.write(line)
+                    new_lines += line
                     continue
                 error_id = line.split('\t')[0]
                 if error_id in errors_with_tags.keys():
                     line_parts = line.split('\t')
                     tag_parts = line_parts[1].split()
                     if len(errors_with_tags[error_id]) != 0:
-                        # tag_parts[0] = ', '.join(errors_with_tags[error_id])
-                        tag_parts[0] = tag_parts[0] + ', '.join(errors_with_tags[error_id])
+                        if tag_parts[0] == "Capitalisation":
+                            tag_parts[0] = tag_parts[0] + ', ' + ', '.join(errors_with_tags[error_id])
+                        else:
+                            tag_parts[0] = ', '.join(errors_with_tags[error_id])
                     new_tag_parts = ' '.join(tag_parts)
                     line_parts[1] = new_tag_parts
                     line = '\t'.join(line_parts)
-                result.write(line)
+                #result.seek(0)
+                #result.write(line)
+                #result.truncate()
+                new_lines += line
+            result.close()
+        with open(result_filename, 'w', encoding='utf-8') as result_write:
+            result_write.write(new_lines)
 
 def str_keys_to_int(dictionary):
     value_dict = {}
@@ -139,7 +151,7 @@ def process_json_files():
 
             for file in files:
                 filename = '_'.join(file.split('.')[0].split('_')[:-1])
-                if not filename in parsed_filenames:
+                if filename not in parsed_filenames:
                     errors_file = filename + '_errors.json'
                     tokens_file = filename + '_tokens.json'
                     sentences_file = filename + '_sent.json'

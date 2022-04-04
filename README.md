@@ -21,8 +21,8 @@ The list of rules is stored in *rules.py*.
 SpaCy parser and SpaCy custom tokeniser are kept in *test_spacy.py*  and *test_spacy_custom_tokeniser.py*  
   
 ## Folders
-The essays from the corpora should be put in Essays\Test folder. Later the correct files (files containing no annotated errors) will be moved to Dataset\Correct folder; files containing annotations, but having no "gram", "comp" or "vocab" tags will be moved to Dataset\Other Tags folder.  
-JSON-files will be put in Essays\Processed folder.  
-The result annotation files can be found in Essays\Results folder.  
+The essays from the corpora should be put in **Essays\Test** folder. Later the correct files (files containing no annotated errors) will be moved to **Dataset\Correct** folder; files containing annotations, but having no "gram", "comp" or "vocab" tags will be moved to **Dataset\Other Tags** folder.  
+JSON-files will be put in **Essays\Processed** folder.  
+The result annotation files can be found in **Essays\Results** folder.  
   
-The annotations from the corpora which will later be used to form the result file are stored in Essays\Annotations folder.
+The annotations from the corpora which will later be used to form the result file are stored in **Essays\Annotations** folder.

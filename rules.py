@@ -111,8 +111,22 @@ class Rules:
         # we need to develop the error span algorithm first
         return ""
 
-    def check_prepositions_simple(self, error, correction):
+    def check_prepositions(self, error, correction):
+        # TODO: Prepositional adverb (make a list of such adverbs?)
         if self.is_preposition(error) and self.is_preposition(correction) and error['token'] != correction['token']:
+            # if the preposition is determined by the noun, the tag Prepositional noun is chosen;
+            # if the preposition is determined by the adjective, the tag Prepositional adjective is chosen;
+            # in other cases the preposition is independent and tag Prepositions is chosen
+            #
+            # increase of - increase in (Prepositional noun)
+            # regardless the loss - regardless of the loss (Prepositional adjective)
+            # the growth increased for this period - the growth increased during this period (Prepositions)
+
+            preposition_head = self.sentence_dict[error['token_head']]
+            if preposition_head['token_pos'] == 'NOUN':
+                return "Prepositional noun"
+            elif preposition_head['token_pos'] == 'ADJ':
+                return "Prepositional adjective"
             return "Prepositions"
 
     def check_agreement_subject_pred(self, error):
@@ -258,7 +272,7 @@ class Rules:
         # (in this case we cannot derive 'Tense' property from the auxiliary verb)
         #
         # "will play" - "will be playing"
-        if (error_future == corr_future or tense[0] == corr_tense[0]):
+        if error_future == corr_future or tense[0] == corr_tense[0]:
             if (len(aspect) and not len(corr_aspect) and aspect[0] == 'Prog') or \
                     (not len(aspect) and len(corr_aspect) and corr_aspect[0] == 'Prog'):
                 return "Choice of tense"

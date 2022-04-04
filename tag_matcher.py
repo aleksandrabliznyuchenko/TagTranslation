@@ -45,14 +45,14 @@ class TagMatcher:
         pos_tag = token_properties['token_pos']
         tag = token_properties['token_tag']
 
-        if not "articles" in matched_tags and \
+        if "articles" not in matched_tags and \
                 (token_dep == "det" or self.article_in_correction()):
             rules.append("articles")
 
-        # cases like "interest OF the game" --> "interest IN the game" (Prepositions)
         # TODO: cases like "carried" --> "carried out" (Verb pattern)
+        # TODO: cases like "regardless" --> "regardless of" (Prepositional adjective)
         if tag in self.rules.preposition_tags:
-            rules.append("prepositions_simple")
+            rules.append("prepositions")
 
         """
         For verbs we always check agreement with subject, because checking whether we should check it or not
@@ -82,10 +82,12 @@ class TagMatcher:
         if rule == "articles":
             tag = self.rules.check_articles(error_token)
 
-        elif rule == "prepositions_simple":
+        elif rule == "prepositions":
+            # TODO: cases like "regardless the loss" - "regardless of the loss"
+            #  no preposition in the error area, preposition added in the correction
             correction_match = self.rules.match_correction(error_token, 1)
             if correction_match:
-                tag = self.rules.check_prepositions_simple(error_token, correction_match)
+                tag = self.rules.check_prepositions(error_token, correction_match)
 
         elif pos_tag == "VERB" or pos_tag == "AUX":
             if rule == "agreement":
@@ -144,15 +146,16 @@ class TagMatcher:
         for token_id, error_token in enumerate(error.split()):
             token = self.token(error_token=error_token, tokens=error_record['tokens'])
 
-            # at this point we examine each token from the error span separately
-            # if we encounter constructions like analytical predicates ("have done", "will be doing" etc),
-            # the error will be broadened when the rule is applied
-            self.rules.error_properties = token
-            set_of_rules = self.define_rules(token, match)
+            if token:
+                # at this point we examine each token from the error span separately
+                # if we encounter constructions like analytical predicates ("have done", "will be doing" etc),
+                # the error will be broadened when the rule is applied
+                self.rules.error_properties = token
+                set_of_rules = self.define_rules(token, match)
 
-            for rule in set_of_rules:
-                tag = self.apply_rule(rule, token, correction)
-                if tag:
-                    match.append(tag)
+                for rule in set_of_rules:
+                    tag = self.apply_rule(rule, token, correction)
+                    if tag:
+                        match.append(tag)
 
         return match

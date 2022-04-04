@@ -63,7 +63,6 @@ def fill_result_file(errors_with_tags, filename, folder, ann_file):
             lines = result.readlines()
             for i, line in enumerate(lines):
                 if i > max_error:
-                    #result.write(line)
                     new_lines += line
                     continue
                 error_id = line.split('\t')[0]
@@ -78,9 +77,6 @@ def fill_result_file(errors_with_tags, filename, folder, ann_file):
                     new_tag_parts = ' '.join(tag_parts)
                     line_parts[1] = new_tag_parts
                     line = '\t'.join(line_parts)
-                #result.seek(0)
-                #result.write(line)
-                #result.truncate()
                 new_lines += line
             result.close()
         with open(result_filename, 'w', encoding='utf-8') as result_write:

@@ -3,12 +3,6 @@ import spacy_conll
 from test_spacy_custom_tokenizer import custom_tokenizer
 
 
-# nlp = spacy.load("en_core_web_sm")
-# doc = nlp(sentence)
-# for token in doc:
-#     print(token.text, token.dep_, token.head.text, token.head.pos_,
-#             [child for child in token.children])
-
 class SpacyAnalyzer:
     def __init__(self):
         self.nlp = spacy.load("en_core_web_trf", disable=["ner"])
@@ -67,10 +61,10 @@ class SpacyAnalyzer:
         return text_dict, sentences_dict
 
 
-test = SpacyAnalyzer()
-
-sentence_struct_PP = test.spacy_sentence_dict("will study")
-for key, value in sentence_struct_PP.items():
-    print(key, value)
+# test = SpacyAnalyzer()
+# 
+# sentence_struct_PP = test.spacy_sentence_dict("will study")
+# for key, value in sentence_struct_PP.items():
+#     print(key, value)
 
 

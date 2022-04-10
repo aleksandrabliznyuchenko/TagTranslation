@@ -12,7 +12,7 @@ from spacy.tokens import MorphAnalysis
 
 time_start = time.perf_counter()
 
-path = os.path.join(os.getcwd(), r'Essays\Test')
+path = os.path.join(os.getcwd(), r'Essays\Input')
 temporary_folder = os.path.join(os.getcwd(), r'Essays\Temporary')
 destination_folder = os.path.join(os.getcwd(), r'Essays\Processed')
 results_folder = os.path.join(os.getcwd(), r'Essays\Results')

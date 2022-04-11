@@ -111,16 +111,27 @@ class TagMatcher:
         tag = token_properties['token_tag']
 
         # if 'articles' not in matched_tags and \
-        if 5 not in matched_tags and token_id == 0 and \
+        if 5 not in matched_tags and \
                 (token_properties['token'] in ['a', 'an', 'the'] or
-                 self.rules.token_in_correction(mode=1, missing=False)):
+                 self.rules.token_in_correction(mode=3, missing=False)):
             rules.append('articles')
 
-        # TODO: cases like 'carried' --> 'carried out' (Verb pattern)
-        if not checked_prepositions and \
-                (tag in self.rules.preposition_tags or
-                 self.rules.token_in_correction(mode=3, missing=False)):
+        # firstly, we scan the error span and the correction span for conjunctions and later for prepositions,
+        # so that we only apply the rule that checks conjunctions in cases like
+        # "women between 55 to 65" - "women between 55 and 65"
+        if 23 not in matched_tags and \
+                (self.rules.is_conjunction(token_properties) or
+                 self.rules.token_in_correction(mode=4, missing=False)):
+            rules.append('conjunctions')
+
+        if not checked_prepositions and 'conjunctions' not in rules and \
+                (tag in self.rules.prepositions or
+                 self.rules.token_in_correction(mode=1, missing=False)):
             rules.append('prepositions')
+
+        if 31 not in matched_tags and \
+            (pos_tag == 'PRON' or self.rules.token_in_correction(mode=5, missing=False)):
+            rules.append('pronouns')
 
         '''
         For verbs we always check agreement with subject, because checking whether we should check it or not
@@ -141,11 +152,21 @@ class TagMatcher:
                      self.rules.token_in_correction(mode=2, missing=False)):
                 rules.append('modals')
 
+            # cases like "carried" - "carried out" (Verb Pattern)
+            if self.rules.token_in_correction(mode=1, missing=False) or \
+                    self.rules.token_in_error(mode=1, missing=False):
+                rules.append('pattern')
+                if 'prepositions' in rules:
+                    rules.remove('prepositions')
+
         elif pos_tag == 'NOUN':
             if tag in pos_dict['NUM']:
                 rules.append('numerals')
             else:
                 rules.append('noun_number')
+
+        if 'verbs' in rules and 'pronouns' in rules:
+            rules.remove('pronouns')
 
         return rules
 
@@ -165,8 +186,15 @@ class TagMatcher:
         if rule == 'articles':
             tag = self.rules.check_articles(error_token)
 
+        # TODO: relative clauses (and complex cases of word order errors?)
+        elif rule == 'conjunctions':
+            tag = self.rules.check_conjunctions(error_token)
+
         elif rule == 'prepositions':
             tag = self.rules.check_prepositions(error_token)
+
+        elif rule == 'pronouns':
+            tag = self.rules.check_pronouns(error_token)
 
         elif pos_tag == 'VERB' or pos_tag == 'AUX':
             if rule == 'agreement':
@@ -175,14 +203,16 @@ class TagMatcher:
             elif rule == 'verbs':
                 tag = self.rules.check_verb(error_token)
                 if not tag:
-                    # TODO Tense Form
-                    tag = None
+                    tag = self.rules.check_tense_form()
 
             elif rule == 'voice':
                 tag = self.rules.check_voice()
 
             elif rule == 'modals':
                 tag = self.rules.check_modals(error_token)
+
+            elif rule == 'pattern':
+                tag = self.rules.check_pattern(error_token)
 
         elif pos_tag == 'NOUN':
             if rule == 'numerals':

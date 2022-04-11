@@ -2,8 +2,9 @@ from dictionaries import irregular_verbs
 
 
 class Rules:
+    conjunctions = ['CCONJ', 'SCONJ']
     modals = ['MD', 'VM0']
-    preposition_tags = ['PRF', 'PRP', 'ADP', 'IN']
+    prepositions = ['PRF', 'PRP', 'ADP', 'IN']
 
     subjects = ['csubj', 'csubjpass', 'nsubj', 'nsubjpass']
     gerund = ['VBG', 'VDG', 'VHG', 'VVG']
@@ -35,33 +36,39 @@ class Rules:
         self.current_token_id = None
 
     def match_correction(self, error_properties, mode):
+        # POS-tag: 'number' - 'number' / 'member' / 'amounts'
+        if mode == 1:
+            for corr_id, correction in self.correction_properties.items():
+                if correction['token_pos'] == error_properties['token_pos']:
+                    return corr_id, correction
+
         # POS-tag + TreeTagger tag: 'number' - 'number' / 'member'
-        if mode == 0:
+        elif mode == 2:
             for corr_id, correction in self.correction_properties.items():
                 if correction['token_pos'] == error_properties['token_pos'] and \
                         correction['token_tag'] == error_properties['token_tag']:
                     return corr_id, correction
 
-        # POS-tag: 'number' - 'number' / 'member' / 'amounts'
-        elif mode == 1:
-            for corr_id, correction in self.correction_properties.items():
-                if correction['token_pos'] == error_properties['token_pos']:
-                    return corr_id, correction
-
         # 'get' - 'getting'; POS-tag: VERB or AUX
-        elif mode == 2:
+        elif mode == 3:
             for corr_id, correction in self.correction_properties.items():
                 if correction['token_pos'] == 'VERB' or correction['token_pos'] == 'AUX' or \
                         (correction['token_pos'] == 'NOUN' and correction['token'].endswith('ing')):
                     return corr_id, correction
 
         # modals
-        elif mode == 3:
+        elif mode == 4:
             for corr_id, correction in self.correction_properties.items():
                 if self.is_modal(correction):
                     return corr_id, correction
 
-        # POS-tag + TreeTagger tag + lemma: 'number' - 'number'
+        # conjunctions
+        elif mode == 5:
+            for corr_id, correction in self.correction_properties.items():
+                if self.is_conjunction(correction):
+                    return corr_id, correction
+
+        # POS-tag + lemma: 'number' - 'number'
         else:
             for corr_id, correction in self.correction_properties.items():
                 if correction['token_pos'] == error_properties['token_pos'] and \
@@ -69,6 +76,39 @@ class Rules:
                         correction['token_lemma'] == error_properties['token_lemma']:
                     return corr_id, correction
         return None, {}
+
+    def token_in_correction(self, mode, missing=True):
+        for correction in self.correction_properties.values():
+            # prepositions
+            if mode == 1:
+                if correction['token_tag'] in self.prepositions:
+                    return False if missing else True
+            # modals
+            elif mode == 2:
+                if self.is_modal(correction):
+                    return False if missing else True
+            # articles
+            elif mode == 3:
+                if correction['token'].lower() in ['a', 'an', 'the']:
+                    return False if missing else True
+            # conjunctions
+            elif mode == 4:
+                if self.is_conjunction(correction):
+                    return False if missing else True
+            # pronouns
+            elif mode == 5:
+                if correction['token_pos'] == 'PRON':
+                    return False if missing else True
+
+        return True if missing else False
+
+    def token_in_error(self, mode, missing=True):
+        if len(self.full_error['tokens'].values()):
+            for error in self.full_error['tokens'].values():
+                # prepositions
+                if mode == 1:
+                    if error['token_tag'] in self.prepositions:
+                        return False if missing else True
 
     '''
     Checking word properties (it's part of speech, correct particle form of a verb etc.)
@@ -150,7 +190,7 @@ class Rules:
         return False
 
     def is_modal(self, token):
-        return token['token'] == 'will' or \
+        return token['token'].lower() == 'will' or \
                (token['token_pos'] == 'AUX' and token['token_tag'] in self.modals)
 
     def is_finite_verb(self, token):
@@ -194,26 +234,13 @@ class Rules:
                     return True
         return False
 
+    def is_conjunction(self, token):
+        return (token['token_pos'] in self.conjunctions or
+                (token['token_pos'] == 'PRON' and token['token_tag'] in ['WDT', 'WP']))
+
     '''
     Checking word form (and whether a form of a word is correct or not)
     '''
-
-    def token_in_correction(self, mode, missing=True):
-        for correction in self.correction_properties.values():
-            # articles
-            if mode == 1:
-                if correction['token'] in ['a', 'an', 'the']:
-                    return False if missing else True
-            # modals
-            elif mode == 2:
-                if self.is_modal(correction):
-                    return False if missing else True
-
-            elif mode == 3:
-                if correction['token_tag'] in self.preposition_tags:
-                    return False if missing else True
-
-        return True if missing else False
 
     def check_irregular_form(self, form):
         irregular = irregular_verbs[self.error_properties['token_lemma']][form]
@@ -303,6 +330,8 @@ class Rules:
 
     '''
     Rules that return tag matches
+    
+    Grammatical change, addition or deletion of a lexical item
     '''
 
     def check_articles(self, error_token):
@@ -311,12 +340,12 @@ class Rules:
         # "choose good film" - "choose a good film"
 
         if error_token['token'] in ['a', 'an', 'the']:
-            _, correction_match = self.match_correction(error_token, 0)
-            if correction_match and correction_match['token'] != error_token['token']:
+            _, correction_match = self.match_correction(error_token, 2)
+            if correction_match and correction_match['token'].lower() != error_token['token']:
                 return 5  # Articles
-            elif self.token_in_correction(mode=1, missing=True):
+            elif self.token_in_correction(mode=3, missing=True):
                 return 5
-        elif self.token_in_correction(mode=1, missing=False):
+        elif self.token_in_correction(mode=3, missing=False):
             return 5
 
     def check_modals(self, error_token):
@@ -324,8 +353,8 @@ class Rules:
         # "I rather agree" - "I would rather agree"
 
         if self.is_modal(error_token):
-            _, correction_match = self.match_correction(error_token, 3)
-            if correction_match and correction_match['token'] != error_token['token']:
+            _, correction_match = self.match_correction(error_token, 4)
+            if correction_match and correction_match['token'].lower() != error_token['token']:
                 return 12  # Modals
             elif self.token_in_correction(mode=2, missing=True):
                 return 12
@@ -343,7 +372,7 @@ class Rules:
         # "regardless the loss" - "regardless of the loss" (Prepositional adjective)
         # "the growth increased for this period" - "the growth increased during this period" (Prepositions)
 
-        if error_token['token_tag'] in self.preposition_tags:
+        if error_token['token_tag'] in self.prepositions:
             preposition_head = self.sentence_dict[error_token['token_head']]
             if preposition_head['token_pos'] == 'NOUN':
                 tag = 18  # Prepositional noun
@@ -353,17 +382,44 @@ class Rules:
                 tag = 22  # Prepositions
 
             _, correction_match = self.match_correction(error_token, 1)
-            if correction_match and correction_match['token'] != error_token['token']:
+            if correction_match and correction_match['token'].lower() != error_token['token']:
                 return tag
-            elif self.token_in_correction(mode=3, missing=True):
+            elif self.token_in_correction(mode=1, missing=True):
                 return tag
-        elif self.token_in_correction(mode=3, missing=False):
+        elif self.token_in_correction(mode=1, missing=False):
             if error_token['token_pos'] == 'NOUN':
                 return 18  # Prepositional noun
             elif error_token['token_pos'] == 'ADJ':
                 return 25  # Prepositional adjective
             else:
                 return 22  # Prepositions
+
+    def check_conjunctions(self, error_token):
+        # "That stands out is that..." - "What stands out is that..."
+        # "women between 55 to 65" - "women between 55 and 65"
+        # "it is up to everybody to decide whether which side should they take" - "it is up to everybody to decide which side should they take"
+        if self.is_conjunction(error_token):
+            _, correction_match = self.match_correction(error_token, 5)
+            if correction_match and correction_match['token'].lower() != error_token['token']:
+                return 23  # Conjunctions
+            elif self.token_in_correction(mode=4, missing=True):
+                return 23
+        elif self.token_in_correction(mode=4, missing=False):
+            return 23
+
+    def check_pronouns(self, error_token):
+        if error_token['token_pos'] == 'PRON':
+            _, correction_match = self.match_correction(error_token, 1)
+            if correction_match and correction_match['token'].lower() != error_token['token']:
+                return 31  # Pronouns
+            elif self.token_in_correction(mode=5, missing=True):
+                return 31
+        elif self.token_in_correction(mode=5, missing=False):
+            return 31
+
+    '''
+    Verbal rules
+    '''
 
     def check_agreement_subject_pred(self, error_token):
         correction_number = []
@@ -424,7 +480,7 @@ class Rules:
             return 11  # Voice
 
     def check_gerund_participle_pattern(self, error_token):
-        _, correction_token = self.match_correction(error_token, 2)
+        _, correction_token = self.match_correction(error_token, 3)
         if correction_token:
             # "is applies" - "is applied"
             # "feel encourage" - "feel encouraged"
@@ -543,6 +599,44 @@ class Rules:
         tag = self.noun_adj_participle(error_token)
         if tag:
             return tag
+
+    def check_tense_form(self):
+        # "rosed" - "rose"
+        # "sleeped" - "slept"
+
+        for correction in self.correction_properties.values():
+            if correction['token_lemma'] in irregular_verbs.keys() and \
+                    correction['token'].lower() in irregular_verbs[correction['token_lemma']]:
+                return 10  # Tense form
+
+    def check_pattern(self, error_token):
+        error_prep, corr_prep = '', ''
+
+        # cases like "carried" - "carried out"
+        # other types of Verb Patter error like "avoid visit" - "avoid visiting" are examined in other rules
+
+        _, correction_match = self.match_correction(error_token, 0)
+        if correction_match:
+            if len(correction_match['children_list']):
+                for cc in correction_match['children_list']:
+                    child = self.correction_properties[cc[1]]
+                    if child['token_tag'] in self.prepositions:
+                        corr_prep = child['token'].lower()
+                        break
+
+            if len(error_token['children_list']):
+                for c in error_token['children_list']:
+                    child = self.sentence_dict[c[1]]
+                    if child['token_tag'] in self.prepositions:
+                        error_prep = child['token']
+                        break
+
+            if error_prep != corr_prep:
+                return 13  # Verb pattern
+
+    '''
+    Others
+    '''
 
     def check_noun_number(self):
         corr_number = []

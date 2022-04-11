@@ -147,7 +147,7 @@ def process_json_files():
 
     for root, dirs, files in os.walk(path):
         for folder in dirs:
-            # if folder == 'Voice':  # TODO: потом убрать
+            # if folder == 'Test':  # TODO: потом убрать
             current_path = os.path.join(path, folder)
             files = os.listdir(current_path)
             file_num_total += len(files)

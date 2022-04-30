@@ -15,11 +15,11 @@ class SpacyAnalyzer:
             token_inx:
                 {
                     'token': '',
-                   'token_head': '',
-                   'token_dep': '',
-                   'token_morph': {},
-                   'children_list': [],
-                   'ancestor_list': []
+                    'token_head': '',
+                    'token_dep': '',
+                    'token_morph': {},
+                    'children_list': [],
+                    'ancestor_list': []
                 }
         }
         doc = self.nlp(sentence)
@@ -37,34 +37,18 @@ class SpacyAnalyzer:
             }
         return sentence_structure_dict
 
+    def spacy_dict(self, text, sentences):
+        spacy_dict, sentences_dict = {}, {}
 
-    def spacy_text_dict(self, text):
-        sent_num = 0
-        idx_1 = 0
+        for sent_id, sent_idx in sentences.items():
+            idx_1, idx_2 = sent_idx[0], sent_idx[1]
+            sentence = text[idx_1:idx_2]
+            if sent_id not in sentences_dict.keys():
+                sentences_dict[sent_id] = {}
+            sentences_dict[sent_id]['sentence'] = sentence
+            sentences_dict[sent_id]['idx_1'] = idx_1
+            sentences_dict[sent_id]['idx_2'] = idx_2
 
-        text_dict = {}
-        sentences_dict = {}
-        tokens = self.nlp(text)
-        for sent in tokens.sents:
-            sentence = sent.text.replace('\n', '')
-            if sentence != '':
-                structure_dict = self.spacy_sentence_dict(sentence)
-                text_dict[sent_num] = structure_dict
-
-                if not sent_num in sentences_dict.keys():
-                    sentences_dict[sent_num] = {}
-                sentences_dict[sent_num]['text'] = sentence
-                sentences_dict[sent_num]['idx_1'] = idx_1
-                sentences_dict[sent_num]['idx_2'] = idx_1 + len(sentence)
-                idx_1 += len(sentence) + 1
-                sent_num += 1
-        return text_dict, sentences_dict
-
-
-# test = SpacyAnalyzer()
-# 
-# sentence_struct_PP = test.spacy_sentence_dict("will study")
-# for key, value in sentence_struct_PP.items():
-#     print(key, value)
-
-
+            # tokenise our normalised sentence using spaCy custom tokeniser
+            spacy_dict[sent_id] = self.spacy_sentence_dict(sentence)
+        return spacy_dict, sentences_dict

@@ -1,0 +1,622 @@
+T1	Noun_number 72 77	sport
+#1	AnnotatorNotes T1	sports
+T2	Noun_number 212 217	sport
+#2	AnnotatorNotes T2	sports
+T3	Spelling 242 250	benifits
+#3	AnnotatorNotes T3	benefits
+T4	Spelling 359 368	programms
+#4	AnnotatorNotes T4	programmes
+T5	gram 389 397	spending
+#5	AnnotatorNotes T5	spent
+T6	vocab 429 441	entertaining
+#6	AnnotatorNotes T6	entertainment
+T7	punct 656 659	all
+#7	AnnotatorNotes T7	all,
+T8	punct 705 711	course
+#8	AnnotatorNotes T8	course,
+T9	comp 730 735	watch
+#9	AnnotatorNotes T9	watches
+T10	disc 775 780	would
+A1	Delete T10
+T11	comp 813 817	gets
+#10	AnnotatorNotes T11	get
+T12	punct 827 831	Also
+#11	AnnotatorNotes T12	Also,
+T13	Articles 868 872	team
+#12	AnnotatorNotes T13	a team
+T14	punct 883 887	city
+#13	AnnotatorNotes T14	city,
+T15	gram 913 918	wins,
+#14	AnnotatorNotes T15	wins, you
+T16	Articles 969 979	good topic
+#15	AnnotatorNotes T16	a good topic
+T17	Spelling 988 999	converstion
+#16	AnnotatorNotes T17	conversation
+T18	Spelling 1040 1047	becouse
+#17	AnnotatorNotes T18	because
+T19	punct 1086 1089	all
+#18	AnnotatorNotes T19	all,
+T20	Spelling 1101 1106	whith
+#19	AnnotatorNotes T20	with
+T21	Spelling 1192 1200	entrtain
+#20	AnnotatorNotes T21	entertaining
+T311	gram 1189 1191	to
+A2	Delete T311
+T22	Articles 1226 1233	bad way
+#21	AnnotatorNotes T22	a bad way
+T23	Articles 1280 1290	good hobby
+#22	AnnotatorNotes T23	a good hobby
+T24	EX0 0 5	There
+#23	AnnotatorNotes T24	lemma = 'there'
+T25	VBB 6 9	are
+#24	AnnotatorNotes T25	lemma = 'be'
+T26	AT0 10 11	a
+#25	AnnotatorNotes T26	lemma = 'a'
+T27	NN1 12 15	lot
+#26	AnnotatorNotes T27	lemma = 'lot'
+T28	PRF 16 18	of
+#27	AnnotatorNotes T28	lemma = 'of'
+T29	NN1 19 24	sport
+#28	AnnotatorNotes T29	lemma = 'sport'
+T30	NN2 25 29	fans
+#29	AnnotatorNotes T30	lemma = 'fan'
+T31	PRP 30 32	in
+#30	AnnotatorNotes T31	lemma = 'in'
+T32	AT0 33 36	the
+#31	AnnotatorNotes T32	lemma = 'the'
+T33	NN1 37 42	world
+#32	AnnotatorNotes T33	lemma = 'world'
+T34	PNQ 43 46	who
+#33	AnnotatorNotes T34	lemma = 'who'
+T35	VVB 47 52	watch
+#34	AnnotatorNotes T35	lemma = 'watch'
+T36	AT0 53 54	a
+#35	AnnotatorNotes T36	lemma = 'a'
+T37	NN1 55 58	lot
+#36	AnnotatorNotes T37	lemma = 'lot'
+T38	PRF 59 61	of
+#37	AnnotatorNotes T38	lemma = 'of'
+T39	AJ0 62 71	different
+#38	AnnotatorNotes T39	lemma = 'different'
+T40	NN1 72 77	sport
+#39	AnnotatorNotes T40	lemma = 'sport'
+T41	NN2 78 84	events
+#40	AnnotatorNotes T41	lemma = 'event'
+T42	SENT 84 85	.
+#41	AnnotatorNotes T42	lemma = '.'
+T43	CJC 86 89	But
+#42	AnnotatorNotes T43	lemma = 'but'
+T44	NN2 90 96	others
+#43	AnnotatorNotes T44	lemma = 'other'
+T45	VVB 97 102	think
+#44	AnnotatorNotes T45	lemma = 'think'
+T46	CJT 103 107	that
+#45	AnnotatorNotes T46	lemma = 'that'
+T47	VVG 108 116	watching
+#46	AnnotatorNotes T47	lemma = 'watch'
+T48	NN1 117 122	sport
+#47	AnnotatorNotes T48	lemma = 'sport'
+T49	VBZ 123 125	is
+#48	AnnotatorNotes T49	lemma = 'be'
+T50	AJ0 126 133	useless
+#49	AnnotatorNotes T50	lemma = 'useless'
+T51	CJC 134 137	and
+#50	AnnotatorNotes T51	lemma = 'and'
+T52	VBZ 138 140	is
+#51	AnnotatorNotes T52	lemma = 'be'
+T53	AT0 141 142	a
+#52	AnnotatorNotes T53	lemma = 'a'
+T54	NN1 143 148	waste
+#53	AnnotatorNotes T54	lemma = 'waste'
+T55	PRF 149 151	of
+#54	AnnotatorNotes T55	lemma = 'of'
+T56	NN0 152 158	people
+#55	AnnotatorNotes T56	lemma = 'people'
+T57	POS 158 160	's
+#56	AnnotatorNotes T57	lemma = ''s'
+T58	AJ0 161 165	free
+#57	AnnotatorNotes T58	lemma = 'free'
+T59	NN1 166 170	time
+#58	AnnotatorNotes T59	lemma = 'time'
+T60	SENT 170 171	.
+#59	AnnotatorNotes T60	lemma = '.'
+T61	PRP 172 174	On
+#60	AnnotatorNotes T61	lemma = 'on'
+T62	AT0 175 178	the
+#61	AnnotatorNotes T62	lemma = 'the'
+T63	CRD 179 182	one
+#62	AnnotatorNotes T63	lemma = 'one'
+T64	NN1 183 187	hand
+#63	AnnotatorNotes T64	lemma = 'hand'
+T65	PUN 187 188	,
+#64	AnnotatorNotes T65	lemma = ','
+T66	PNP 189 191	it
+#65	AnnotatorNotes T66	lemma = 'it'
+T67	VVZ 192 197	seems
+#66	AnnotatorNotes T67	lemma = 'seem'
+T68	CJT 198 202	that
+#67	AnnotatorNotes T68	lemma = 'that'
+T69	VVG 203 211	watching
+#68	AnnotatorNotes T69	lemma = 'watch'
+T70	NN1 212 217	sport
+#69	AnnotatorNotes T70	lemma = 'sport'
+T71	NN2 218 224	events
+#70	AnnotatorNotes T71	lemma = 'event'
+T72	VDZ 225 229	does
+#71	AnnotatorNotes T72	lemma = 'do'
+T73	XX0 229 232	n't
+#72	AnnotatorNotes T73	lemma = 'not'
+T74	VHI 233 237	have
+#73	AnnotatorNotes T74	lemma = 'have'
+T75	DT0 238 241	any
+#74	AnnotatorNotes T75	lemma = 'any'
+T76	NN2 242 250	benifits
+#75	AnnotatorNotes T76	lemma = 'benifit'
+T77	SENT 250 251	.
+#76	AnnotatorNotes T77	lemma = '.'
+T78	PNP 252 254	It
+#77	AnnotatorNotes T78	lemma = 'it'
+T79	VM0 255 257	wo
+#78	AnnotatorNotes T79	lemma = 'will'
+T80	XX0 257 260	n't
+#79	AnnotatorNotes T80	lemma = 'not'
+T81	VVI 261 265	make
+#80	AnnotatorNotes T81	lemma = 'make'
+T82	PNP 266 269	you
+#81	AnnotatorNotes T82	lemma = 'you'
+T83	AV0 270 274	more
+#82	AnnotatorNotes T83	lemma = 'more'
+T84	AJ0 275 282	healthy
+#83	AnnotatorNotes T84	lemma = 'healthy'
+T85	PUN 282 283	,
+#84	AnnotatorNotes T85	lemma = ','
+T86	AJ0 284 287	fit
+#85	AnnotatorNotes T86	lemma = 'fit'
+T87	CJC 288 290	or
+#86	AnnotatorNotes T87	lemma = 'or'
+T88	AJ0 291 296	smart
+#87	AnnotatorNotes T88	lemma = 'smart'
+T89	SENT 296 297	.
+#88	AnnotatorNotes T89	lemma = '.'
+T90	AV0 298 300	So
+#89	AnnotatorNotes T90	lemma = 'so'
+T91	PNI 301 304	one
+#90	AnnotatorNotes T91	lemma = 'one'
+T92	VM0 305 308	can
+#91	AnnotatorNotes T92	lemma = 'can'
+T93	VVI 309 312	say
+#92	AnnotatorNotes T93	lemma = 'say'
+T94	DT0 313 317	that
+#93	AnnotatorNotes T94	lemma = 'that'
+T95	VDG 318 323	doing
+#94	AnnotatorNotes T95	lemma = 'do'
+T96	NN1 324 329	sport
+#95	AnnotatorNotes T96	lemma = 'sport'
+T97	CJC 330 332	or
+#96	AnnotatorNotes T97	lemma = 'or'
+T98	VVG 333 341	watching
+#97	AnnotatorNotes T98	lemma = 'watch'
+T99	DT0 342 346	some
+#98	AnnotatorNotes T99	lemma = 'some'
+T100	AJ0 347 358	educational
+#99	AnnotatorNotes T100	lemma = 'educational'
+T101	NN2 359 368	programms
+#100	AnnotatorNotes T101	lemma = 'programms'
+T102	VBZ 369 371	is
+#101	AnnotatorNotes T102	lemma = 'be'
+T103	AV0 372 376	much
+#102	AnnotatorNotes T103	lemma = 'much'
+T104	AJC 377 383	better
+#103	AnnotatorNotes T104	lemma = 'good'
+T105	NN1 384 388	time
+#104	AnnotatorNotes T105	lemma = 'time'
+T106	NN1 389 397	spending
+#105	AnnotatorNotes T106	lemma = 'spending|spend'
+T107	SENT 397 398	.
+#106	AnnotatorNotes T107	lemma = '.'
+T108	AV0 399 403	Also
+#107	AnnotatorNotes T108	lemma = 'also'
+T109	EX0 404 409	there
+#108	AnnotatorNotes T109	lemma = 'there'
+T110	VBB 410 413	are
+#109	AnnotatorNotes T110	lemma = 'be'
+T111	AJ0 414 419	other
+#110	AnnotatorNotes T111	lemma = 'other'
+T112	NN2 420 425	types
+#111	AnnotatorNotes T112	lemma = 'type'
+T113	PRF 426 428	of
+#112	AnnotatorNotes T113	lemma = 'of'
+T114	VVG 429 441	entertaining
+#113	AnnotatorNotes T114	lemma = 'entertain|entertaining'
+T115	PRP 442 446	like
+#114	AnnotatorNotes T115	lemma = 'like'
+T116	VVG 447 452	going
+#115	AnnotatorNotes T116	lemma = 'go|going'
+T117	PRP 453 455	to
+#116	AnnotatorNotes T117	lemma = 'to'
+T118	AT0 456 459	the
+#117	AnnotatorNotes T118	lemma = 'the'
+T119	NN1 460 466	cinema
+#118	AnnotatorNotes T119	lemma = 'cinema'
+T120	PUN 466 467	,
+#119	AnnotatorNotes T120	lemma = ','
+T121	CJS 468 473	where
+#120	AnnotatorNotes T121	lemma = 'where'
+T122	PNP 474 477	you
+#121	AnnotatorNotes T122	lemma = 'you'
+T123	VVB 478 481	get
+#122	AnnotatorNotes T123	lemma = 'get'
+T124	DT0 482 486	some
+#123	AnnotatorNotes T124	lemma = 'some'
+T125	AJ0 487 496	important
+#124	AnnotatorNotes T125	lemma = 'important'
+T126	NN2 497 502	ideas
+#125	AnnotatorNotes T126	lemma = 'idea'
+T127	TO0 503 505	to
+#126	AnnotatorNotes T127	lemma = 'to'
+T128	VVI 506 511	think
+#127	AnnotatorNotes T128	lemma = 'think'
+T129	AVP 512 517	about
+#128	AnnotatorNotes T129	lemma = 'about'
+T130	SENT 517 518	.
+#129	AnnotatorNotes T130	lemma = '.'
+T131	AV0 519 523	Also
+#130	AnnotatorNotes T131	lemma = 'also'
+T132	DT0 524 528	some
+#131	AnnotatorNotes T132	lemma = 'some'
+T133	NN2 529 533	fans
+#132	AnnotatorNotes T133	lemma = 'fan'
+T134	VVB 534 536	go
+#133	AnnotatorNotes T134	lemma = 'go'
+T135	AJ0 537 542	crazy
+#134	AnnotatorNotes T135	lemma = 'crazy'
+T136	CJC 543 546	and
+#135	AnnotatorNotes T136	lemma = 'and'
+T137	VVB 547 551	hate
+#136	AnnotatorNotes T137	lemma = 'hate'
+T138	DT0 552 556	each
+#137	AnnotatorNotes T138	lemma = 'each'
+T139	NN1 557 562	other
+#138	AnnotatorNotes T139	lemma = 'other'
+T140	SENT 562 563	.
+#139	AnnotatorNotes T140	lemma = '.'
+T141	PRP 564 566	On
+#140	AnnotatorNotes T141	lemma = 'on'
+T142	AT0 567 570	the
+#141	AnnotatorNotes T142	lemma = 'the'
+T143	AJ0 571 576	other
+#142	AnnotatorNotes T143	lemma = 'other'
+T144	NN1 577 581	hand
+#143	AnnotatorNotes T144	lemma = 'hand'
+T145	PUN 581 582	,
+#144	AnnotatorNotes T145	lemma = ','
+T146	VVG 583 591	watching
+#145	AnnotatorNotes T146	lemma = 'watch'
+T147	NN1 592 597	sport
+#146	AnnotatorNotes T147	lemma = 'sport'
+T148	VBZ 598 600	is
+#147	AnnotatorNotes T148	lemma = 'be'
+T149	XX0 601 604	not
+#148	AnnotatorNotes T149	lemma = 'not'
+T150	AV0 605 609	only
+#149	AnnotatorNotes T150	lemma = 'only'
+T151	AJ0 610 618	matching
+#150	AnnotatorNotes T151	lemma = 'matching|match'
+T152	PNI 619 627	somebody
+#151	AnnotatorNotes T152	lemma = 'somebody'
+T153	VVG 628 635	playing
+#152	AnnotatorNotes T153	lemma = 'play|playing'
+T154	PNI 636 645	something
+#153	AnnotatorNotes T154	lemma = 'something'
+T155	SENT 645 646	.
+#154	AnnotatorNotes T155	lemma = '.'
+T156	ORD 647 652	First
+#155	AnnotatorNotes T156	lemma = 'first'
+T157	PRF 653 655	of
+#156	AnnotatorNotes T157	lemma = 'of'
+T158	DT0 656 659	all
+#157	AnnotatorNotes T158	lemma = 'all'
+T159	PNP 660 662	it
+#158	AnnotatorNotes T159	lemma = 'it'
+T160	VVZ 663 672	motivates
+#159	AnnotatorNotes T160	lemma = 'motivate'
+T161	NN0 673 679	people
+#160	AnnotatorNotes T161	lemma = 'people'
+T162	TO0 680 682	to
+#161	AnnotatorNotes T162	lemma = 'to'
+T163	VVI 683 688	start
+#162	AnnotatorNotes T163	lemma = 'start'
+T164	VDG 689 694	doing
+#163	AnnotatorNotes T164	lemma = 'do'
+T165	NN1 695 700	sport
+#164	AnnotatorNotes T165	lemma = 'sport'
+T166	SENT 700 701	.
+#165	AnnotatorNotes T166	lemma = '.'
+T167	PRF 702 704	Of
+#166	AnnotatorNotes T167	lemma = 'of'
+T168	NN1 705 711	course
+#167	AnnotatorNotes T168	lemma = 'course'
+T169	XX0 712 715	not
+#168	AnnotatorNotes T169	lemma = 'not'
+T170	PNI 716 725	everybody
+#169	AnnotatorNotes T170	lemma = 'everybody'
+T171	PNQ 726 729	who
+#170	AnnotatorNotes T171	lemma = 'who'
+T172	VVB 730 735	watch
+#171	AnnotatorNotes T172	lemma = 'watch'
+T173	PNP 736 738	it
+#172	AnnotatorNotes T173	lemma = 'it'
+T174	VBZ 739 741	is
+#173	AnnotatorNotes T174	lemma = 'be'
+T175	AJ0 742 745	fit
+#174	AnnotatorNotes T175	lemma = 'fit'
+T176	CJC 746 749	and
+#175	AnnotatorNotes T176	lemma = 'and'
+T177	AJ0 750 757	healthy
+#176	AnnotatorNotes T177	lemma = 'healthy'
+T178	PUN 757 758	,
+#177	AnnotatorNotes T178	lemma = ','
+T179	CJC 759 762	but
+#178	AnnotatorNotes T179	lemma = 'but'
+T180	DT0 763 767	some
+#179	AnnotatorNotes T180	lemma = 'some'
+T181	NN0 768 774	people
+#180	AnnotatorNotes T181	lemma = 'people'
+T182	VM0 775 780	would
+#181	AnnotatorNotes T182	lemma = 'would'
+T183	VVI 781 784	see
+#182	AnnotatorNotes T183	lemma = 'see'
+T184	NN0 785 791	people
+#183	AnnotatorNotes T184	lemma = 'people'
+T185	VVG 792 799	playing
+#184	AnnotatorNotes T185	lemma = 'play|playing'
+T186	NN1 800 808	football
+#185	AnnotatorNotes T186	lemma = 'football'
+T187	CJC 809 812	and
+#186	AnnotatorNotes T187	lemma = 'and'
+T188	VVZ 813 817	gets
+#187	AnnotatorNotes T188	lemma = 'get'
+T189	PRP 818 822	into
+#188	AnnotatorNotes T189	lemma = 'into'
+T190	PNP 823 825	it
+#189	AnnotatorNotes T190	lemma = 'it'
+T191	SENT 825 826	.
+#190	AnnotatorNotes T191	lemma = '.'
+T192	AV0 827 831	Also
+#191	AnnotatorNotes T192	lemma = 'also'
+T193	PNP 832 834	it
+#192	AnnotatorNotes T193	lemma = 'it'
+T194	VBZ 835 837	is
+#193	AnnotatorNotes T194	lemma = 'be'
+T195	AT0 838 839	a
+#194	AnnotatorNotes T195	lemma = 'a'
+T196	AJ0 840 844	good
+#195	AnnotatorNotes T196	lemma = 'good'
+T197	NN1 845 850	hobby
+#196	AnnotatorNotes T197	lemma = 'hobby'
+T198	SENT 850 851	.
+#197	AnnotatorNotes T198	lemma = '.'
+T199	PNP 852 855	You
+#198	AnnotatorNotes T199	lemma = 'you'
+T200	VM0 856 859	can
+#199	AnnotatorNotes T200	lemma = 'can'
+T201	VVI 860 867	support
+#200	AnnotatorNotes T201	lemma = 'support'
+T202	NN1 868 872	team
+#201	AnnotatorNotes T202	lemma = 'team'
+T203	PRP 873 877	from
+#202	AnnotatorNotes T203	lemma = 'from'
+T204	DPS 878 882	your
+#203	AnnotatorNotes T204	lemma = 'you'
+T205	NN1 883 887	city
+#204	AnnotatorNotes T205	lemma = 'city'
+T206	PRP 888 891	for
+#205	AnnotatorNotes T206	lemma = 'for'
+T207	NN1 892 899	example
+#206	AnnotatorNotes T207	lemma = 'example'
+T208	PUN 899 900	,
+#207	AnnotatorNotes T208	lemma = ','
+T209	CJC 901 904	and
+#208	AnnotatorNotes T209	lemma = 'and'
+T210	CJS 905 909	when
+#209	AnnotatorNotes T210	lemma = 'when'
+T211	PNP 910 912	it
+#210	AnnotatorNotes T211	lemma = 'it'
+T212	VVZ 913 917	wins
+#211	AnnotatorNotes T212	lemma = 'win'
+T213	PUN 917 918	,
+#212	AnnotatorNotes T213	lemma = ','
+T214	VVB 919 923	feel
+#213	AnnotatorNotes T214	lemma = 'feel'
+T215	CJT 924 928	that
+#214	AnnotatorNotes T215	lemma = 'that'
+T216	PNP 929 932	you
+#215	AnnotatorNotes T216	lemma = 'you'
+T217	VVD 933 945	participated
+#216	AnnotatorNotes T217	lemma = 'participate'
+T218	PRP 946 948	in
+#217	AnnotatorNotes T218	lemma = 'in'
+T219	DT0 949 953	this
+#218	AnnotatorNotes T219	lemma = 'this'
+T220	NN1 954 961	victory
+#219	AnnotatorNotes T220	lemma = 'victory'
+T221	SENT 961 962	.
+#220	AnnotatorNotes T221	lemma = '.'
+T222	PNP 963 965	It
+#221	AnnotatorNotes T222	lemma = 'it'
+T223	VBZ 966 968	is
+#222	AnnotatorNotes T223	lemma = 'be'
+T224	AJ0 969 973	good
+#223	AnnotatorNotes T224	lemma = 'good'
+T225	NN1 974 979	topic
+#224	AnnotatorNotes T225	lemma = 'topic'
+T226	TO0 980 982	to
+#225	AnnotatorNotes T226	lemma = 'to'
+T227	VHI 983 987	have
+#226	AnnotatorNotes T227	lemma = 'have'
+T228	NN1 988 999	converstion
+#227	AnnotatorNotes T228	lemma = 'converstion'
+T229	AV0 1000 1003	too
+#228	AnnotatorNotes T229	lemma = 'too'
+T230	SENT 1003 1004	.
+#229	AnnotatorNotes T230	lemma = '.'
+T231	AT0 1005 1006	A
+#230	AnnotatorNotes T231	lemma = 'a'
+T232	NN1 1007 1010	lot
+#231	AnnotatorNotes T232	lemma = 'lot'
+T233	PRF 1011 1013	of
+#232	AnnotatorNotes T233	lemma = 'of'
+T234	NN0 1014 1020	people
+#233	AnnotatorNotes T234	lemma = 'people'
+T235	VVB 1021 1025	find
+#234	AnnotatorNotes T235	lemma = 'find'
+T236	AJ0 1026 1030	good
+#235	AnnotatorNotes T236	lemma = 'good'
+T237	NN2 1031 1038	friends
+#236	AnnotatorNotes T237	lemma = 'friend'
+T238	PUN 1038 1039	,
+#237	AnnotatorNotes T238	lemma = ','
+T239	NN1 1040 1047	becouse
+#238	AnnotatorNotes T239	lemma = 'becouse'
+T240	PNP 1048 1052	they
+#239	AnnotatorNotes T240	lemma = 'they'
+T241	VVB 1053 1060	support
+#240	AnnotatorNotes T241	lemma = 'support'
+T242	AT0 1061 1064	the
+#241	AnnotatorNotes T242	lemma = 'the'
+T243	DT0 1065 1069	same
+#242	AnnotatorNotes T243	lemma = 'same'
+T244	NN1 1070 1074	team
+#243	AnnotatorNotes T244	lemma = 'team'
+T245	SENT 1074 1075	.
+#244	AnnotatorNotes T245	lemma = '.'
+T246	AV0 1076 1078	So
+#245	AnnotatorNotes T246	lemma = 'so'
+T247	DT0 1079 1082	all
+#246	AnnotatorNotes T247	lemma = 'all'
+T248	PRP 1083 1085	in
+#247	AnnotatorNotes T248	lemma = 'in'
+T249	DT0 1086 1089	all
+#248	AnnotatorNotes T249	lemma = 'all'
+T250	PNP 1090 1091	I
+#249	AnnotatorNotes T250	lemma = 'i'
+T251	VVB 1092 1100	disagree
+#250	AnnotatorNotes T251	lemma = 'disagree'
+T252	AJ0 1101 1106	whith
+#251	AnnotatorNotes T252	lemma = 'whith'
+T253	AT0 1107 1110	the
+#252	AnnotatorNotes T253	lemma = 'the'
+T254	NN1 1111 1120	statement
+#253	AnnotatorNotes T254	lemma = 'statement'
+T255	CJT 1121 1125	that
+#254	AnnotatorNotes T255	lemma = 'that'
+T256	AJ0 1126 1134	watching
+#255	AnnotatorNotes T256	lemma = 'watching|watch'
+T257	NN1 1135 1140	sport
+#256	AnnotatorNotes T257	lemma = 'sport'
+T258	VBZ 1141 1143	is
+#257	AnnotatorNotes T258	lemma = 'be'
+T259	AT0 1144 1145	a
+#258	AnnotatorNotes T259	lemma = 'a'
+T260	NN1 1146 1151	waste
+#259	AnnotatorNotes T260	lemma = 'waste'
+T261	PRF 1152 1154	of
+#260	AnnotatorNotes T261	lemma = 'of'
+T262	NN1 1155 1159	time
+#261	AnnotatorNotes T262	lemma = 'time'
+T263	SENT 1159 1160	.
+#262	AnnotatorNotes T263	lemma = '.'
+T264	NN0 1161 1167	People
+#263	AnnotatorNotes T264	lemma = 'people'
+T265	VM0 1168 1172	must
+#264	AnnotatorNotes T265	lemma = 'must'
+T266	VVI 1173 1178	spend
+#265	AnnotatorNotes T266	lemma = 'spend'
+T267	DT0 1179 1183	some
+#266	AnnotatorNotes T267	lemma = 'some'
+T268	NN1 1184 1188	time
+#267	AnnotatorNotes T268	lemma = 'time'
+T269	TO0 1189 1191	to
+#268	AnnotatorNotes T269	lemma = 'to'
+T270	VVI 1192 1200	entrtain
+#269	AnnotatorNotes T270	lemma = 'entrtain'
+T271	PNX 1201 1211	themselves
+#270	AnnotatorNotes T271	lemma = 'themselves'
+T272	CJC 1212 1215	and
+#271	AnnotatorNotes T272	lemma = 'and'
+T273	PNP 1216 1218	it
+#272	AnnotatorNotes T273	lemma = 'it'
+T274	VBZ 1219 1221	is
+#273	AnnotatorNotes T274	lemma = 'be'
+T275	XX0 1222 1225	not
+#274	AnnotatorNotes T275	lemma = 'not'
+T276	AJ0 1226 1229	bad
+#275	AnnotatorNotes T276	lemma = 'bad'
+T277	NN1 1230 1233	way
+#276	AnnotatorNotes T277	lemma = 'way'
+T278	TO0 1234 1236	to
+#277	AnnotatorNotes T278	lemma = 'to'
+T279	VDI 1237 1239	do
+#278	AnnotatorNotes T279	lemma = 'do'
+T280	DT0 1240 1244	that
+#279	AnnotatorNotes T280	lemma = 'that'
+T281	SENT 1244 1245	.
+#280	AnnotatorNotes T281	lemma = '.'
+T282	AT0 1246 1249	The
+#281	AnnotatorNotes T282	lemma = 'the'
+T283	AJ0 1250 1254	main
+#282	AnnotatorNotes T283	lemma = 'main'
+T284	NN1 1255 1261	reason
+#283	AnnotatorNotes T284	lemma = 'reason'
+T285	AVQ 1262 1265	why
+#284	AnnotatorNotes T285	lemma = 'why'
+T286	PNP 1266 1267	I
+#285	AnnotatorNotes T286	lemma = 'i'
+T287	VVB 1268 1276	consider
+#286	AnnotatorNotes T287	lemma = 'consider'
+T288	PNP 1277 1279	it
+#287	AnnotatorNotes T288	lemma = 'it'
+T289	AJ0 1280 1284	good
+#288	AnnotatorNotes T289	lemma = 'good'
+T290	NN1 1285 1290	hobby
+#289	AnnotatorNotes T290	lemma = 'hobby'
+T291	PUN 1290 1291	,
+#290	AnnotatorNotes T291	lemma = ','
+T292	VBZ 1292 1294	is
+#291	AnnotatorNotes T292	lemma = 'be'
+T293	CJT 1295 1299	that
+#292	AnnotatorNotes T293	lemma = 'that'
+T294	PNP 1300 1302	it
+#293	AnnotatorNotes T294	lemma = 'it'
+T295	VVZ 1303 1311	connects
+#294	AnnotatorNotes T295	lemma = 'connect'
+T296	NN0 1312 1318	people
+#295	AnnotatorNotes T296	lemma = 'people'
+T297	SENT 1318 1319	.
+#296	AnnotatorNotes T297	lemma = '.'
+T298	NN0 1320 1326	People
+#297	AnnotatorNotes T298	lemma = 'people'
+T299	VVG 1327 1337	supporting
+#298	AnnotatorNotes T299	lemma = 'supporting|support'
+T300	CRD 1338 1341	one
+#299	AnnotatorNotes T300	lemma = 'one'
+T301	NN1 1342 1346	team
+#300	AnnotatorNotes T301	lemma = 'team'
+T302	VBB 1347 1350	are
+#301	AnnotatorNotes T302	lemma = 'be'
+T303	AV0 1351 1355	very
+#302	AnnotatorNotes T303	lemma = 'very'
+T304	AJ0 1356 1363	helpful
+#303	AnnotatorNotes T304	lemma = 'helpful'
+T305	CJC 1364 1367	and
+#304	AnnotatorNotes T305	lemma = 'and'
+T306	AJ0 1368 1372	kind
+#305	AnnotatorNotes T306	lemma = 'kind'
+T307	PRP 1373 1375	to
+#306	AnnotatorNotes T307	lemma = 'to'
+T308	DT0 1376 1380	each
+#307	AnnotatorNotes T308	lemma = 'each'
+T309	NN1 1381 1386	other
+#308	AnnotatorNotes T309	lemma = 'other'
+T310	SENT 1386 1387	.
+#309	AnnotatorNotes T310	lemma = '.'

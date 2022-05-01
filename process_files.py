@@ -89,6 +89,12 @@ def fill_results(errors_with_tags, filename, folder, ann_file, sentences):
     global file_num_total
     errors_processed, skip_line = 0, 0
     ann_lines = ''
+    
+    if len(errors_with_tags.keys()):
+        last_error_id = list(errors_with_tags.keys())[-1]
+        max_error = int(last_error_id[1:])
+    else:
+        errors_processed = 1
 
     if not os.path.exists(results_folder):
         os.makedirs(results_folder)
@@ -102,9 +108,6 @@ def fill_results(errors_with_tags, filename, folder, ann_file, sentences):
         os.remove(output_file_name)
     results_txt = open(output_file_name, 'a', encoding='utf-8')
     results_txt.write('File:   %s\n\n\n' % filename)
-
-    last_error_id = list(errors_with_tags.keys())[-1]
-    max_error = int(last_error_id[1:])
 
     ann_result_filename = Path(os.path.join(current_folder, filename + '_results.ann'))
     file_to_read = ann_file if not ann_result_filename.exists() else ann_result_filename

@@ -121,7 +121,7 @@ def fill_results(errors_with_tags, filename, folder, ann_file, sentences):
     ann_result_filename = Path(os.path.join(current_folder, filename + '.ann'))
     file_to_read = ann_file if not ann_result_filename.exists() else ann_result_filename
 
-    with open(file_to_read, 'r', encoding='utf-8') as file:
+    with open(file_to_read, 'r', encoding='utf-8', newline='') as file:
         lines = file.readlines()
         for i, line in enumerate(lines):
             if skip_line:
@@ -160,7 +160,7 @@ def fill_results(errors_with_tags, filename, folder, ann_file, sentences):
     file.close()
     results_txt.close()
 
-    with open(ann_result_filename, 'w', encoding='utf-8') as ann:
+    with open(ann_result_filename, 'w', encoding='utf-8', newline='') as ann:
         ann.write(ann_lines)
 
 

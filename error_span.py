@@ -1,15 +1,6 @@
 from rules_base import RulesBase
 from dictionaries import prepositional_nouns, prepositional_adj, prepositional_adv
 
-"""
-    We broaden error span and correction span. It is important to remember that we form the error span step by step.
-    For example, for the error "a number" - "the percentage" we have to form 2 separate lines in the annotation file
-    1. a number - the number (Articles)
-    2. number - percentage (Choice of lexical item)
-
-    Thus, it is our main goal to construct a correct broad error span - the correction will be later derived from it.
-"""
-
 
 class ErrorSpan(RulesBase):
 
@@ -509,7 +500,7 @@ class ErrorSpan(RulesBase):
                     ancestor = self.full_correction[a[1]]
                     if (ancestor['token_pos'] == 'ADV' or
                         (ancestor['token_pos'] == 'ADP' and ancestor['token_tag'] == 'IN')) and \
-                         ancestor['token_lemma'] in prepositional_adv:
+                            ancestor['token_lemma'] in prepositional_adv:
                         prep_adv = prepositional_adv[ancestor['token_lemma']]
                         if prep_adv == preposition['token'].lower():
                             token_id_match, token_match = self.match_error_token(ancestor, a[1], mode=1)
@@ -518,14 +509,6 @@ class ErrorSpan(RulesBase):
                                 if len(error_prep):
                                     error[error_prep[0]] = error_prep[1]
                             break
-            # elif tag == 28 and corr_prep[0] - 1 in self.full_correction.keys():
-            #     prev_token = self.full_correction[corr_prep[0] - 1]
-            #     if prev_token['token_pos'] == 'ADP':
-            #         token_id_match, token_match = self.match_error_token(prev_token, corr_prep[0] - 1, mode=1)
-            #         if len(token_match.keys()):
-            #             error[token_id_match] = token_match
-            #             if len(error_prep):
-            #                 error[error_prep[0]] = error_prep[1]
             # parallel construction like "for borrowing or for buying"
             elif tag == 35 and len(preposition['children_list']):
                 for c in preposition['children_list']:
@@ -536,14 +519,6 @@ class ErrorSpan(RulesBase):
                             error[token_id_match] = token_match
                             if len(error_prep):
                                 error[error_prep[0]] = error_prep[1]
-
-        # elif len(error_prep) and not len(corr_prep):
-        #     error[error_prep[0]] = error_prep[1]
-        #     # prepositional adverb
-        #     if tag == 28 and error_prep[0] - 1 in self.construction_dict.keys():
-        #         prev_token = self.construction_dict[error_prep[0] - 1]
-        #         if prev_token['token_pos'] == 'ADP':
-        #             error[error_prep[0] - 1] = prev_token
 
         if len(error.keys()):
             error = dict(sorted(error.items()))
@@ -633,8 +608,6 @@ class ErrorSpan(RulesBase):
         return [error_text, idx_1, idx_2], correction_text
 
     def possessive_span(self, error_token):
-        error, correction = {}, {}
-
         # "'" (apostrophe) in the error span, "s" in the correction
         # we have to change that to error token + apostrophe in the error span and error token + s in the correction
         error = self.sentence_tokens[self.current_token_id - 1]
@@ -643,22 +616,6 @@ class ErrorSpan(RulesBase):
         correction_text = error['token']
         for correction in self.correction.values():
             correction_text += correction['token']
-
-        # if not len(correction.keys()):
-        #     correction = self.correction
-
-        # error = dict(sorted(error.items()))
-        # for error_token in error.values():
-        #     if error_text == '':
-        #         idx_1 = error_token['idx_1']
-        #     if error_token['token_pos'] == 'PROPN':
-        #         error_token['token'] = error_token['token'].capitalize()
-        #     error_text += ' ' + error_token['token'] if error_text != '' else error_token['token']
-        #     idx_2 = error_token['idx_2'] if error_token['idx_2'] > idx_2 else idx_2
-
-        # correction = dict(sorted(correction.items()))
-        # for corr_token in correction.values():
-        #     correction_text += ' ' + corr_token['token'] if correction_text != '' else corr_token['token']
 
         if correction_text.istitle():
             error_text = error_text.capitalize()

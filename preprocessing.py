@@ -156,8 +156,6 @@ def derive_sentences(tokens_dict, errors_dict):
     return sentences, errors_dict
 
 
-# на данном этапе берем каждое слово в области ошибки, ищем его аналог из области исправления по индексу слова и сравниваем регистры
-# хотя надо бы искать в области исправления слово с такой же леммой и так далее
 def check_capitalisation(error, correction):
     for i, word in enumerate(error.split()):
         if word.isalpha() and len(correction.split()) >= i + 1:
@@ -199,7 +197,6 @@ def normalise(file_txt, errors, sentences):
 
 
 def first_tokens(tokens_dict, sent_dict):
-    # first_token_idx = [sent['idx_1'] for sent in sent_dict.values()]
     first_token_idx = [sent_idx[0] for sent_idx in sent_dict.values()]
     tokens = []
 
@@ -247,7 +244,6 @@ def process_normal_file(ann_file, txt_file, filename, folder):
         sentences_data, errors_dict = derive_sentences(tokens_dict, errors_dict)
         tokens = first_tokens(tokens_dict, sentences_data)
         text, capitals, updated_sent_data = normalise(txt_file, errors_dict, copy.deepcopy(sentences_data))
-        # text, capitals = normalise(txt_file, errors_dict)
 
         # combine the dict of tokens with dict of spaCy tokens
         spacy_text_dict, sent_dict = nlp.spacy_dict(text, updated_sent_data)

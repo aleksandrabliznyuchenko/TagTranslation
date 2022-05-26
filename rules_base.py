@@ -1,5 +1,5 @@
-from dictionaries import irregular_verbs, pos_dict, infinitive_verbs, gerund_verbs
 import re
+from dictionaries import irregular_verbs, pos_dict, infinitive_verbs, gerund_verbs
 
 
 class RulesBase:

@@ -1,4 +1,4 @@
-import logging
+# import logging
 from dictionaries import infinitive_verbs
 from rules import Rules
 
@@ -277,10 +277,6 @@ class TagMatcher:
         elif pos_tag in ['NOUN', 'PROPN']:
             rules.append('noun_number')
             rules.append('noun_gerund')
-            # if 19 not in matched_tags and \
-            #     ("'" in token_properties['token'] or
-            #      self.rules.token_in_correction(mode=12, missing=False)):
-            #     rules.append('noun_possessive')
 
         if pos_tag in ['NOUN', 'PROPN', 'ADJ', 'ADV']:
             rules.append('lex_choice')
@@ -304,8 +300,6 @@ class TagMatcher:
 
         if rule == 'possessive':
             tag = self.rules.check_possessive(error_token)
-            # self.rules.error_span, self.rules.correction_span = self.rules.span.possessive_span(error_token)
-            # tag = 19  # Possessive form of noun
 
         if rule == 'compound':
             tag = self.rules.check_compound(error_token)
@@ -374,8 +368,6 @@ class TagMatcher:
                     tag = self.rules.check_noun_number(error_token, correction_token)
                 elif rule == 'noun_gerund':
                     tag = self.rules.check_noun_gerund(error_token, correction_token)
-                # elif rule == 'noun_possessive':
-                #     tag = self.rules.check_possessive(error_token, correction_token)
 
         # do not check lexical choice if we have detected
         # Quantifiers, Numerals, Pronouns, Negation, Degree of comparison or Compound word error

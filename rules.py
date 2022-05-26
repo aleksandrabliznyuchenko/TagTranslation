@@ -167,10 +167,6 @@ class Rules(RulesBase):
         else:
             corr_id, corr_token = self.span.token_in_correction(mode=10, missing=False)
             if len(corr_token.keys()) and self.token_in_error(mode=10, missing=True):
-                # error_id, error_token = self.token_in_error_token(mode=10)
-                # if len(error_token.keys()) and corr_token['token_lemma'] != error_token['token_lemma']:
-                #     self.span.current_token_id = error_id
-                #     self.error_span = [error_token['token'], error_token['idx_1'], error_token['idx_2']]
                 self.correction_span = corr_token['token']
                 return 6  # Quantifiers
 
@@ -189,10 +185,6 @@ class Rules(RulesBase):
         else:
             corr_id, corr_token = self.span.token_in_correction(mode=2, missing=False)
             if len(corr_token.keys()) and self.token_in_error(mode=2, missing=True):
-                # error_id, error_token = self.token_in_error_token(mode=2)
-                # if len(error_token.keys()) and corr_token['token_lemma'] != error_token['token_lemma']:
-                #     self.span.current_token_id = error_id
-                #     self.error_span = [error_token['token'], error_token['idx_1'], error_token['idx_2']]
                 self.correction_span = corr_token['token']
                 return 12  # Modals
 
@@ -263,14 +255,6 @@ class Rules(RulesBase):
                                         [corr_id, correction_match], 28
                                     )
                                     return 28  # Prepositional adverb
-                # if self.current_token_id - 1 in self.construction_dict.keys():
-                #     prev_token = self.construction_dict[self.current_token_id - 1]
-                #     if prev_token['token_pos'] == 'ADV' and prev_token['token_tag'] not in pos_dict['ADJ']:
-                #         self.error_span, self.correction_span = self.span.prepositions_span(
-                #             [self.current_token_id, error_token],
-                #             [corr_id, correction_match], 28
-                #         )
-                #         return 28  # Prepositional adverb
                 self.error_span, self.correction_span = self.span.prepositions_span(
                     [self.current_token_id, error_token],
                     [corr_id, correction_match], 22
@@ -279,14 +263,6 @@ class Rules(RulesBase):
             else:
                 prep_id, preposition = self.span.token_in_correction(mode=1, missing=False)
                 if not len(preposition.keys()):
-                    # if self.current_token_id - 1 in self.construction_dict.keys():
-                    #     prev_token = self.construction_dict[self.current_token_id - 1]
-                    #     if prev_token['token_pos'] == 'ADV':
-                    #         self.error_span, self.correction_span = self.span.prepositions_span(
-                    #             [self.current_token_id, error_token],
-                    #             [corr_id, correction_match], 28
-                    #         )
-                    #         return 28  # Prepositional adverb
                     self.error_span = [self.full_error['error'], self.full_error['idx_1'], self.full_error['idx_2']]
                     self.correction_span = self.full_error['correction']
                     return 22  # Prepositions
@@ -359,15 +335,6 @@ class Rules(RulesBase):
                                             [corr_id, correction_match], 28
                                         )
                                         return 28  # Prepositional adverb
-                    # if error_prep_id - 1 in self.construction_dict.keys():
-                    #     prev_token = self.construction_dict[error_prep_id - 1]
-                    #     if prev_token['token_pos'] == 'ADV':
-                    #         self.span.current_token_id = error_prep_id
-                    #         self.error_span, self.correction_span = self.span.prepositions_span(
-                    #             [error_prep_id, error_prep],
-                    #             [corr_id, correction_match], 28
-                    #         )
-                    #         return 28  # Prepositional adverb
                     self.span.current_token_id = error_prep_id
                     self.error_span, self.correction_span = self.span.prepositions_span(
                         [error_prep_id, error_prep],
@@ -375,13 +342,6 @@ class Rules(RulesBase):
                     )
                     return 22  # Prepositions
                 elif not len(correction_match.keys()):
-                    # if error_prep_id - 1 in self.construction_dict.keys():
-                    #     prev_token = self.construction_dict[error_prep_id - 1]
-                    #     if prev_token['token_pos'] == 'ADV':
-                    #         self.error_span, self.correction_span = self.span.prepositions_span(
-                    #             [error_prep_id, error_prep], [], 28
-                    #         )
-                    #         return 28  # Prepositional adverb
                     self.error_span = [self.full_error['error'], self.full_error['idx_1'], self.full_error['idx_2']]
                     self.correction_span = self.full_error['correction']
                     return 22  # Prepositions
@@ -457,15 +417,6 @@ class Rules(RulesBase):
                                                                 [], [prep_id, preposition], 35
                                                             )
                                                         return 35  # Parallel constructions
-
-                    # if prep_id - 1 in self.full_correction.keys():
-                    #     prev_token = self.full_correction[prep_id - 1]
-                    #     if prev_token['token_pos'] == 'ADV':
-                    #         self.error_span, self.correction_span = self.span.prepositions_span(
-                    #             [], [prep_id, preposition], 28
-                    #         )
-                    #         return 28  # Prepositional adverb
-
                     self.correction_span = error_token['token'] + ' ' + preposition['token']
                     return 22  # Prepositions
 
@@ -522,8 +473,6 @@ class Rules(RulesBase):
     '''
 
     def check_agreement_subject_pred(self, error_token):
-        correction_number = []
-
         # Agreement errors:
         #       develop - develops; is (developing) - are (developing); has developed - have developed (Agreement)
         #       is (developing) - were (developing); was (developing) - have been (developing) (Agreement + Choice of Tense)
@@ -1030,8 +979,6 @@ class Rules(RulesBase):
             # we also have to make sure that nouns ending with -th like "strength", "wealth"
             # are not considered numerals
 
-            # if error_token['token_lemma'] == 'percent' or error_token['token_lemma'][-2:] == 'th' \
-            #         or error_token['token_lemma'] in self.numerals:
             if self.is_numeral_noun(error_token):
                 if error_token['token_lemma'] == 'percent':
                     self.error_span, self.correction_span = self.span.numerals_span(error_token)
@@ -1043,13 +990,6 @@ class Rules(RulesBase):
 
     def check_noun_gerund(self, error_token, correction_token):
         ending_error, ending_corr = 3, 3
-
-        # gerund_error = self.is_gerund(error_token)
-        # gerund_corr = self.is_gerund(correction_token)
-        # if gerund_error != gerund_corr:
-        #     if (gerund_error and error_token['token_lemma'] in correction_token['token']) or \
-        #             (gerund_corr and correction_token['token_lemma'] in error_token['token']):
-        #         return 44  # Confusion of a category
 
         # "attending of gym" - "attendance of gym"
         error_number = error_token['token_morph'].get('Number')

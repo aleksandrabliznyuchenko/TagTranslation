@@ -504,22 +504,3 @@ infinitive_verbs = ['afford', 'agree', 'appear', 'arrange', 'ask', 'attempt', 'b
                     'propose', 'prove', 'quit', 'refuse', 'regret', 'remain', 'remember', 'request', 'resolve',
                     'say', 'seek', 'seem', 'stand', 'start', 'stop', 'struggle', 'swear', 'tend', 'threaten',
                     'try', 'wait', 'want', 'wanted', 'wish']
-
-# uncountable_nouns = [
-#     'accommodation', 'advertising', 'air', 'aid', 'advice', 'anger', 'art', 'assistance', 'bread', 'butter', 'business',
-#     'calm', 'cash', 'chaos', 'cheese', 'childhood', 'clothing', 'coffee', 'content', 'corruption', 'courage',
-#     'currency', 'damage', 'danger', 'darkness', 'data', 'determination', 'economics', 'education', 'electricity',
-#     'employment', 'energy', 'entertainment', 'enthusiasm', 'equipment', 'evidence', 'failure', 'fame', 'fire', 'flour',
-#     'food', 'freedom', 'friendship', 'fuel', 'furniture', 'fun', 'genetics', 'gold', 'grammar', 'guilt', 'hair',
-#     'happiness', 'harm', 'health', 'heat', 'help', 'homework', 'honesty', 'hospitality', 'housework', 'humour',
-#     'imagination', 'importance', 'information', 'innocence', 'intelligence', 'jealousy', 'juice', 'justice', 'kindness',
-#     'knowledge', 'labour', 'lack', 'laughter', 'leisure', 'literature', 'litter', 'logic', 'love', 'luck', 'magic',
-#     'management', 'metal', 'milk', 'money', 'motherhood', 'motivation', 'music', 'nature', 'news', 'nutrition',
-#     'obesity', 'oil', 'oxygen', 'paper', 'patience', 'permission', 'pollution', 'poverty', 'power', 'pride',
-#     'production', 'progress', 'pronunciation', 'publicity', 'punctuation', 'quality', 'quantity', 'racism', 'rain',
-#     'relaxation', 'research', 'respect', 'rice', 'room', 'rubbish', 'safety', 'salt', 'sand', 'seafood', 'shopping',
-#     'silence', 'smoke', 'snow', 'software', 'soup', 'speed', 'spelling', 'stress', 'sugar', 'sunshine', 'tea', 'tennis',
-#     'time', 'tolerance', 'trade', 'traffic', 'transportation', 'travel', 'trust', 'understanding', 'unemployment',
-#     'usage', 'violence', 'vision', 'warmth', 'water', 'weather', 'weight', 'welfare', 'wheat', 'width', 'wildlife',
-#     'wisdom', 'wood', 'work', 'yoga', 'youth'
-# ]

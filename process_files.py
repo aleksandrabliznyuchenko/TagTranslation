@@ -78,8 +78,6 @@ def form_new_lines(line1, line2, errors_with_tags, sentences):
                         last_error_id += 1
                         last_ann_id += 1
 
-                    # new_error_id = 'T' + str(last_error_id) if tag_idx > 0 else error_id
-                    # new_ann_id = '#' + str(last_ann_id) if tag_idx > 0 else ann_id
                     new_error_id = 'T' + str(last_error_id) if new_error else error_id
                     new_ann_id = '#' + str(last_ann_id) if new_error else ann_id
 

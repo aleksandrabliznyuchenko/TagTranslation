@@ -7,7 +7,7 @@ Files from REALEC corpora (annotations and essay texts) are preprocessed in *pre
   
 ## Tag assignment  
   
-After preprocessing, we proceed with tag assignment and forming result annotation files in *process_files.py*.  
+After preprocessing, we proceed with tag assignment and form resulting annotation files in *process_files.py*.  
   
 Tag assignment is done in *tag_matcher.py*. Class TagMatcher derives a set of rules that we apply to the error (*TagMatcher.define_rule*) and then applies them (*TagMatcher.apply_rule*). 
 The list of rules is stored in *rules_base.py* and *rules.py*.  
@@ -17,8 +17,8 @@ The list of rules is stored in *rules_base.py* and *rules.py*.
 We also transform error and correction spans depending on the derived error tag - it is done in *error_span.py*.  
   
 ## SpaCy  
-SpaCy parser and SpaCy custom tokeniser are kept in *test_spacy.py*  and *test_spacy_custom_tokeniser.py*  
+SpaCy parser and SpaCy custom tokeniser are kept in *spacy_tokenizer.py*  and *spacy_custom_tokeniser.py*  
   
 ## Folders
-The essays from the corpora should be put in **Essays\Annotations** folder in a separate folder or a set of folders. We will only process files that contain errors tagged with "gram", "comp" or "vocab" tags.    
-The result annotation files can be found in **Essays\Results** folder.  
+The only folder that you need to create to run the program successfully is the folder **Essays\Annotations**, where you should put both the texts of the essays and corresponding annotation files (either in one folder or a set of folders). The propgram will only process files that contain errors tagged with "gram", "comp" or "vocab" tags, other files will be left unchanged.    
+The result annotation files will be stored in **Essays\Results** folder created by the program.  

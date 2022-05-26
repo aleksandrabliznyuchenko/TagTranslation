@@ -117,7 +117,7 @@ def fill_results(errors_with_tags, filename, folder, ann_file, sentences):
         os.remove(output_file_name)
     results_txt = open(output_file_name, 'a', encoding='utf-8')
     results_txt.write('File:   %s\n\n\n' % filename)
-
+    
     ann_result_filename = Path(os.path.join(current_folder, filename + '.ann'))
     file_to_read = ann_file if not ann_result_filename.exists() else ann_result_filename
 

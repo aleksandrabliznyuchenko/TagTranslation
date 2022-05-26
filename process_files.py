@@ -69,26 +69,27 @@ def form_new_lines(line1, line2, errors_with_tags, sentences):
                 for tag_idx, tag_id in enumerate(token.keys()):
                     tag = token[tag_id]
                     ann_tag = tag['tag']
-                    error = tag['error_span'][0]
-                    idx_1, idx_2 = str(tag['error_span'][1]), str(tag['error_span'][2])
-                    correction = tag['correction']
+                    error_idx_1, error_idx_2 = tag['error_span'][1], tag['error_span'][2]
+                    if not (error_idx_1 == 0 and error_idx_2 == 0):
+                        error = text[error_idx_1:error_idx_2]
+                        correction = tag['correction']
 
-                    if tag_idx > 0:
-                        new_error = 1
-                        last_error_id += 1
-                        last_ann_id += 1
+                        if tag_idx > 0:
+                            new_error = 1
+                            last_error_id += 1
+                            last_ann_id += 1
 
-                    new_error_id = 'T' + str(last_error_id) if new_error else error_id
-                    new_ann_id = '#' + str(last_ann_id) if new_error else ann_id
+                        new_error_id = 'T' + str(last_error_id) if new_error else error_id
+                        new_ann_id = '#' + str(last_ann_id) if new_error else ann_id
 
-                    new_tag_parts = ' '.join([ann_tag, idx_1, idx_2])
-                    new_ann_notes = 'AnnotatorNotes ' + str(new_error_id)
+                        new_tag_parts = ' '.join([ann_tag, str(error_idx_1), str(error_idx_2)])
+                        new_ann_notes = 'AnnotatorNotes ' + str(new_error_id)
 
-                    new_line_1 = '\t'.join([new_error_id, new_tag_parts, error]) + '\n'
-                    new_line_2 = '\t'.join([new_ann_id, new_ann_notes, correction]) + '\n'
-                    new_lines += new_line_1 + new_line_2
-                    result_lines += new_line_1 + new_line_2 + '\n'
-                    used_error_ids.append(new_error_id)
+                        new_line_1 = '\t'.join([new_error_id, new_tag_parts, error]) + '\n'
+                        new_line_2 = '\t'.join([new_ann_id, new_ann_notes, correction]) + '\n'
+                        new_lines += new_line_1 + new_line_2
+                        result_lines += new_line_1 + new_line_2 + '\n'
+                        used_error_ids.append(new_error_id)
 
     return new_lines, result_lines + '\n' if result_lines != '' else ''
 

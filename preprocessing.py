@@ -99,7 +99,7 @@ def ann_file_to_dicts(file):
     errors_dict, tokens_dict = {}, {}
     error_last_id, token_last_id = 0, 0
 
-    with open(file, 'r', encoding='utf-8') as f:
+    with open(file, 'r', encoding='utf-8', newline='') as f:
         for line1, line2 in itertools.zip_longest(*[f] * 2):
             line1_parts = line1.replace('\n', '').split('\t')
             line2_parts = line2.replace('\n', '').split('\t') if line2 is not None else []
@@ -169,7 +169,7 @@ def normalise(file_txt, errors, sentences):
     capitals = {}
     prev_difference = 0
 
-    with open(file_txt, 'r', encoding='utf-8') as txt:
+    with open(file_txt, 'r', encoding='utf-8', newline='') as txt:
         text = txt.read()
 
         for error in errors.values():
@@ -275,8 +275,8 @@ def capitalisation_to_result_file(errors, filename, folder, ann_file):
     max_error = max_error * 2
 
     result_filename = os.path.join(current_folder, filename + '.ann')
-    with open(result_filename, 'w', encoding='utf-8') as result:
-        with open(ann_file, 'r', encoding='utf-8') as ann:
+    with open(result_filename, 'w', encoding='utf-8', newline='') as result:
+        with open(ann_file, 'r', encoding='utf-8', newline='') as ann:
             lines = ann.readlines()
             for i, line in enumerate(lines):
                 if i > max_error:
@@ -296,9 +296,12 @@ def capitalisation_to_result_file(errors, filename, folder, ann_file):
 def create_tmp_file(filename, ann_file):
     comment_pattern = re.compile(r"Cause T\d.*?")
 
+    if not os.path.exists(temporary_folder):
+        os.makedirs(temporary_folder)
+
     new_file = os.path.join(temporary_folder, filename + '_tmp.ann')
-    with open(new_file, 'w', encoding='utf-8') as tmp_file:
-        with open(ann_file, 'r', encoding='utf-8') as ann:
+    with open(new_file, 'w', encoding='utf-8', newline='') as tmp_file:
+        with open(ann_file, 'r', encoding='utf-8', newline='') as ann:
             for line in ann.readlines():
                 line_part = line.split('\t')[-1]
                 if not re.match(comment_pattern, line_part) and not "Dependent_change" in line_part:

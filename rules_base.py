@@ -1,5 +1,5 @@
-from dictionaries import irregular_verbs, pos_dict
 import re
+from dictionaries import irregular_verbs, pos_dict, infinitive_verbs, gerund_verbs
 
 
 class RulesBase:
@@ -7,35 +7,19 @@ class RulesBase:
     # as many of quantifiers are annotated as regular adjectives,
     # the simplest way of identifying them is by making a list of them
     quantifiers = ['much', 'many', 'less', 'few', 'fewer', 'lot']
-    relative_conj = ['who', 'that', 'which', 'whose', 'where', 'why']
+    relative_conj = ['who', 'whom', 'whose', 'that', 'which', 'when', 'where', 'why']
     coordinating_conj = ['and', 'or', 'nor', 'but', 'either', 'neither']
+    numerals = ['first', 'second', 'third', 'percent']
+    numeral_forms = ['four', 'fif', 'six', 'seven', 'eigh', 'nin', 'ten', 'eleven', 'twelf']
 
-    # quantifiers = ['JJ', 'JJR', 'RBS']
     modals = ['MD', 'VM0']
-    prepositions = ['PRF', 'PRP', 'ADP', 'IN']
+    prepositions = ['PRF', 'PRP', 'IN']
     conjunctions = ['CCONJ', 'SCONJ']
 
     subjects = ['csubj', 'csubjpass', 'nsubj', 'nsubjpass']
     gerund = ['VBG', 'VDG', 'VHG', 'VVG']
     participle = ['VBN', 'VDN', 'VHN', 'VVN']
     aux = ['is', 'are', 'was', 'were', 'has', 'have', 'had']
-
-    gerund_verbs = ['acknowledge', 'admit', 'allow', 'anticipate', 'appreciate', 'avoid', 'begin',
-                    'bear', 'confess', 'consider', 'continue', 'defend', 'delay', 'detest', 'discuss',
-                    'dislike', 'enjoy', 'escape', 'evade', 'explain', 'fear', 'finish', 'forget', 'forgive',
-                    'hate', 'keep', 'like', 'love', 'miss', 'permit', 'practice', 'prefer', 'prevent',
-                    'propose', 'quit', 'recall', 'recollect', 'recommend', 'regret', 'remember', 'report',
-                    'resent', 'resist', 'resume', 'risk', 'stand', 'start', 'stop', 'suggest', 'support',
-                    'try', 'understand']
-
-    infinitive_verbs = ['afford', 'agree', 'appear', 'arrange', 'ask', 'attempt', 'beg', 'begin', 'bear',
-                        'care', 'chance', 'choose', 'claim', 'come', 'consent', 'continue', 'dare', 'decide',
-                        'demand', 'deserve', 'determine', 'elect', 'expect', 'fail', 'forget', 'get', 'guarantee',
-                        'hate', 'hesitate', 'hope', 'hurry', 'learn', 'like', 'love', 'manage', 'mean',
-                        'need', 'neglect', 'offer', 'pay', 'plan', 'prefer', 'prepare', 'pretend', 'promise',
-                        'propose', 'prove', 'quit', 'refuse', 'regret', 'remain', 'remember', 'request', 'resolve',
-                        'say', 'seek', 'seem', 'stand', 'start', 'stop', 'struggle', 'swear', 'tend', 'threaten',
-                        'try', 'wait', 'want', 'wish']
 
     def __init__(self):
         self.construction_dict = {}
@@ -56,7 +40,11 @@ class RulesBase:
         # POS-tag: 'number' - 'number' / 'member' / 'amounts'
         if mode == 1:
             for corr_id, correction in self.correction.items():
-                if correction['token_pos'] == error_properties['token_pos']:
+                if correction['token_pos'] == error_properties['token_pos'] or \
+                        ((error_properties['token_pos'] == 'NOUN' and self.is_gerund(correction)) or
+                         (self.is_gerund(error_properties) and correction['token_pos'] == 'NOUN')) or \
+                        (error_properties['token_pos'] == 'NOUN' and correction['token_pos'] == 'PROPN') or \
+                        (error_properties['token_pos'] == 'PROPN' and correction['token_pos'] == 'NOUN'):
                     return corr_id, correction
 
         # POS-tag + token_head
@@ -105,7 +93,7 @@ class RulesBase:
         # determiners
         elif mode == 9:
             for corr_id, correction in self.correction.items():
-                if correction['token_tag'] == 'DT' and not correction['token'].lower() in self.articles:
+                if self.is_determiner(correction):
                     return corr_id, correction
 
         # quantifiers
@@ -133,7 +121,7 @@ class RulesBase:
         for corr_id, correction in self.correction.items():
             # prepositions
             if mode == 1:
-                if correction['token_tag'] in self.prepositions:
+                if correction['token_tag'] in self.prepositions and correction['token_pos'] == 'ADP':
                     return False if missing else True
 
             # modals
@@ -181,7 +169,7 @@ class RulesBase:
 
             # determiners
             elif mode == 9:
-                if correction['token_tag'] == 'DT' and not correction['token'].lower() in self.articles:
+                if self.is_determiner(correction):
                     return False if missing else True
 
             # quantifiers
@@ -204,6 +192,11 @@ class RulesBase:
                 if self.is_negative(correction):
                     return False if missing else True
 
+            # compound
+            elif mode == 14:
+                if "-" in correction['token']:
+                    return False if missing else True
+
         return True if missing else False
 
     def token_in_error(self, mode, missing=True):
@@ -211,7 +204,32 @@ class RulesBase:
             for error_id, error_token in self.full_error['tokens'].items():
                 # prepositions
                 if mode == 1:
-                    if error_token['token_tag'] in self.prepositions:
+                    if error_token['token_tag'] in self.prepositions and error_token['token_pos'] == 'ADP':
+                        return False if missing else True
+
+                # modals
+                elif mode == 2:
+                    if self.is_modal(error_token):
+                        return False if missing else True
+
+                # articles
+                elif mode == 3:
+                    if error_token['token'] in self.articles:
+                        return False if missing else True
+
+                # conjunctions
+                elif mode == 4:
+                    if self.is_conjunction(error_token):
+                        return False if missing else True
+
+                # pronouns
+                elif mode == 5:
+                    if error_token['token_pos'] == 'PRON' and error_token['token_tag'] != 'DT':
+                        return False if missing else True
+
+                # numerals
+                elif mode == 6:
+                    if self.is_numeral(error_token):
                         return False if missing else True
 
                 # comma for relative clauses
@@ -227,7 +245,67 @@ class RulesBase:
                             if token_id < error_id and token['token'].lower() in self.relative_conj:
                                 return False if missing else True
 
+                # determiners
+                elif mode == 9:
+                    if self.is_determiner(error_token):
+                        return False if missing else True
+
+                # quantifiers
+                elif mode == 10:
+                    if error_token['token'].lower() in self.quantifiers:
+                        return False if missing else True
+
+                # token from comparative construction
+                elif mode == 11:
+                    if self.token_from_comparative_constr(error_token):
+                        return False if missing else True
+
+                # token with apostrophe (possessive form of a noun)
+                elif mode == 12:
+                    if "'" in error_token['token']:
+                        return False if missing else True
+
+                # negation
+                elif mode == 13:
+                    if self.is_negative(error_token):
+                        return False if missing else True
+
+                # compound
+                elif mode == 14:
+                    if "-" in error_token['token']:
+                        return False if missing else True
+
         return True if missing else False
+
+    def token_in_error_token(self, mode):
+        if len(self.full_error['tokens'].values()):
+            for error_id, error_token in self.full_error['tokens'].items():
+                # prepositions
+                if mode == 1:
+                    if error_token['token_tag'] in self.prepositions and error_token['token_pos'] == 'ADP':
+                        return error_id, error_token
+
+                # modals
+                elif mode == 2:
+                    if self.is_modal(error_token):
+                        return error_id, error_token
+
+                # articles
+                elif mode == 3:
+                    if error_token['token'].lower() in self.articles:
+                        return error_id, error_token
+
+                # determiners
+                elif mode == 9:
+                    if self.is_determiner(error_token):
+                        return error_id, error_token
+
+                # quantifiers
+                elif mode == 10:
+                    if error_token['token'].lower() in self.quantifiers:
+                        return error_id, error_token
+
+        return 0, {}
 
     def find_comparative_construction(self, correction=False):
         num_as = 0
@@ -248,7 +326,7 @@ class RulesBase:
                 if token['token'] in ['more', 'less'] and len(token['ancestor_list']):
                     for a in token['ancestor_list']:
                         ancestor = self.sentence_tokens[a[1]]
-                        if ancestor['token_pos'] == 'NOUN' and len(ancestor['children_list']):
+                        if ancestor['token_pos'] in ['NOUN', 'PROPN', 'DET', 'ADJ'] and len(ancestor['children_list']):
                             for c in ancestor['children_list']:
                                 if c[0] == 'than':
                                     num_to_return = 1 if token['token'] == 'more' else 2
@@ -306,7 +384,7 @@ class RulesBase:
                 if token['token'].lower() in ['more', 'less'] and len(token['ancestor_list']):
                     for a in token['ancestor_list']:
                         ancestor = self.full_correction[a[1]]
-                        if ancestor['token_pos'] == 'NOUN' and len(ancestor['children_list']):
+                        if ancestor['token_pos'] in ['NOUN', 'PROPN', 'DET', 'ADJ'] and len(ancestor['children_list']):
                             for c in ancestor['children_list']:
                                 if c[0].lower() == 'than':
                                     num_to_return = 1 if token['token'] == 'more' else 2
@@ -377,7 +455,7 @@ class RulesBase:
                         if not aux_found:
                             return False
 
-        for corr_token in self.full_correction.values():
+        for corr_id, corr_token in self.full_correction.items():
             if corr_token['token'] in ['will', 'had']:
                 return False
             elif corr_token['token_pos'] == 'VERB':
@@ -386,13 +464,14 @@ class RulesBase:
                     if not len(corr_token['children_list']):
                         return False
                     for c in corr_token['children_list']:
-                        child = self.full_correction[c[1]]
-                        if child['token_pos'] == 'AUX':
-                            if child['token'] in ['will', 'had']:
-                                return False
-                            else:
-                                aux_found = 1
-                                break
+                        if c[1] >= corr_id - 2:
+                            child = self.full_correction[c[1]]
+                            if child['token_pos'] == 'AUX':
+                                if child['token'] in ['will', 'had']:
+                                    return False
+                                else:
+                                    aux_found = 1
+                                    break
                     if not aux_found:
                         return False
         return True
@@ -401,9 +480,28 @@ class RulesBase:
     Basic rules
     """
 
+    def is_determiner(self, token):
+        return (token['token_pos'] == 'DET' and token['token'].lower() not in self.articles) or \
+               token['token_lemma'].lower() in ['other', 'another']
+
     def is_numeral(self, token):
         return token['token_tag'] in pos_dict['NUM'] or \
                len(re.findall(r'\d+', token['token']))
+
+    def is_numeral_noun(self, token):
+        # "first", "second", "third", "twenty-second", "thirty-first" etc.
+        for num_token in self.numerals:
+            if num_token in token['token_lemma']:
+                return True
+
+            # "fourth", "fifth", "tenth", "thirteenth", "nineteenth", "twentieth" etc.
+            if token['token_lemma'].endswith('teenth') or token['token_lemma'].endswith('tieth'):
+                return True
+            if token['token_lemma'].endswith('th'):
+                base = token['token_lemma'][:-2]
+                for form in self.numeral_forms:
+                    if base.endswith(form):
+                        return True
 
     def is_comparative(self, token):
         degree = token['token_morph'].get('Degree')
@@ -417,7 +515,7 @@ class RulesBase:
         polarity = token['token_morph'].get('Polarity')
         if polarity:
             return polarity[0] == 'Neg'
-        return token['token'] in ['no', 'nothing']
+        return token['token'] in ['no', 'nothing', 'nobody']
 
     def is_modal(self, token):
         return (token['token_pos'] == 'AUX' and token['token_tag'] in self.modals) or \
@@ -426,14 +524,28 @@ class RulesBase:
                 self.construction_dict[self.current_token_id + 1]['token'] == 'to')
 
     def is_finite_verb(self, token):
+        tense = token['token_morph'].get('Tense')
         verb_form = token['token_morph'].get('VerbForm')
-        return verb_form and verb_form[0] in ['Fin', 'Inf']
+        if verb_form and (not tense or tense[0] != 'Past'):
+            return verb_form and verb_form[0] in ['Fin', 'Inf']
+        # in "does not feel" token "feel" can be annotated as a verb or as a noun
+        return token['token_pos'] == 'NOUN' and token['token_tag'] == 'NN'
 
-    def is_infinitive(self, token):
-        if self.is_finite_verb(token) and len(token['children_list']):
-            for child in token['children_list']:
-                if child[0].lower() == 'to':
-                    return True
+    def is_infinitive(self, token, token_id, correction=0):
+        # if self.is_finite_verb(token) and len(token['children_list']):
+        #     for child in token['children_list']:
+        #         if child[0].lower() == 'to':
+        #             return True
+        #         if child[1] > token_id:
+        #             return False
+        if correction and token_id - 1 in self.full_correction.keys():
+            prev_token = self.full_correction[token_id - 1]
+            if prev_token['token'].lower() == 'to':
+                return True
+        elif not correction and token_id - 1 in self.construction_dict.keys():
+            prev_token = self.construction_dict[token_id - 1]
+            if prev_token['token'].lower() == 'to':
+                return True
         return False
 
     def is_participle(self, token):
@@ -449,8 +561,12 @@ class RulesBase:
             if tense and tense[0] == 'Pres' and aspect and aspect[0] == 'Prog':
                 return True
         if token['token_pos'] == 'NOUN':
+            # gerund noun forms are those that end with -ing and whose base is minimum 3 symbols long
+            # so that we do not consider nouns like "thing", "king", "ring" gerunds
+            # the exception is "being"
             number = token['token_morph'].get('Number')
-            if number and number[0] == 'Sing' and token['token'].endswith('ing'):
+            if number and number[0] == 'Sing' and token['token'].endswith('ing') and \
+                    (len(token['token'][:-3]) >= 3 or token['token'].lower() == 'being'):
                 return True
         return False
 
@@ -459,6 +575,10 @@ class RulesBase:
             tense = token['token_morph'].get('Tense')
             aspect = token['token_morph'].get('Aspect')
             if tense and tense[0] == 'Past' and aspect and aspect[0] == 'Perf':
+                return True
+        else:
+            tense = token['token_morph'].get('Tense')
+            if tense and tense[0] == 'Past':
                 return True
         if token['token_pos'] == 'ADJ' and token['token'].endswith('ed'):
             return True
@@ -488,20 +608,20 @@ class RulesBase:
                             len(token['children_list']):
                         for c in token['children_list']:
                             child = self.construction_dict[c[1]]
-                            if child['token_pos'] == 'AUX':
+                            if child['token_pos'] == 'AUX' and child['token_lemma'] == 'be':
                                 return True
 
                 elif token['token_pos'] == 'ADJ' and token['token'].endswith('ed') and \
                         len(token['ancestor_list']):
                     for a in token['ancestor_list']:
                         ancestor = self.construction_dict[a[1]]
-                        if ancestor['token_pos'] == 'AUX':
+                        if ancestor['token_pos'] == 'AUX' and ancestor['token_lemma'] == 'be':
                             return True
 
         else:
             # full passive construction in the correction span
             # "is built", "was built", "will be built"
-            for correction in self.correction.values():
+            for corr_id, correction in self.correction.items():
                 if correction['token_pos'] == 'VERB':
                     aspect = correction['token_morph'].get('Aspect')
                     # "(is) argued" can be annotated either as a participle or a finite verb in the past
@@ -509,13 +629,14 @@ class RulesBase:
                             correction['token'].endswith('ed'):
                         if len(correction['children_list']):
                             for c in correction['children_list']:
-                                child = self.full_correction[c[1]]
-                                if child['token_pos'] == 'AUX':
-                                    return True
+                                if c[1] >= corr_id - 2:
+                                    child = self.full_correction[c[1]]
+                                    if child['token_pos'] == 'AUX' and child['token_lemma'] == 'be':
+                                        return True
                         if len(correction['ancestor_list']):
                             for a in correction['ancestor_list']:
                                 ancestor = self.full_correction[a[1]]
-                                if ancestor['token_pos'] == 'AUX':
+                                if ancestor['token_pos'] == 'AUX' and ancestor['token_lemma'] == 'be':
                                     return True
 
                         # if there is no full passive construction in the correction area,
@@ -526,19 +647,19 @@ class RulesBase:
                         if len(error_token['children_list']):
                             for c in error_token['children_list']:
                                 child = self.construction_dict[c[1]]
-                                if child['token_pos'] == 'AUX':
+                                if child['token_pos'] == 'AUX' and child['token_lemma'] == 'be':
                                     return True
 
                 elif correction['token_pos'] == 'ADJ' and correction['token'].endswith('ed'):
                     if len(correction['ancestor_list']):
                         for a in correction['ancestor_list']:
                             ancestor = self.full_correction[a[1]]
-                            if ancestor['token_pos'] == 'AUX':
+                            if ancestor['token_pos'] == 'AUX' and ancestor['token_lemma'] == 'be':
                                 return True
                     if len(correction['children_list']):
                         for c in correction['children_list']:
                             child = self.full_correction[c[1]]
-                            if child['token_pos'] == 'AUX':
+                            if child['token_pos'] == 'AUX' and child['token_lemma'] == 'be':
                                 return True
 
                     # if there is no full passive construction in the correction area,
@@ -549,7 +670,7 @@ class RulesBase:
                     if len(error_token['ancestor_list']):
                         for a in error_token['ancestor_list']:
                             ancestor = self.construction_dict[a[1]]
-                            if ancestor['token_pos'] == 'AUX':
+                            if ancestor['token_pos'] == 'AUX' and ancestor['token_lemma'] == 'be':
                                 return True
         return False
 
@@ -579,20 +700,22 @@ class RulesBase:
 
         return False
 
-    def check_verb_pattern(self, error_token, correction_token):
+    def check_verb_pattern(self, error, correction):
+        error_token, correction_token = error[1], correction[1]
         if len(error_token['ancestor_list']):
             for a in error_token['ancestor_list']:
                 ancestor = self.construction_dict[a[1]]
                 # "decided announcing it" - "decide to announce it"
                 # "try visiting the stadium" - "try to visit the stadium"
-                if ancestor['token_lemma'] in self.infinitive_verbs and \
-                        self.is_gerund(error_token) and self.is_infinitive(correction_token):
+                if ancestor['token_lemma'] in infinitive_verbs and \
+                        not self.is_infinitive(token=error_token, token_id=error[0], correction=0) and \
+                        self.is_infinitive(token=correction_token, token_id=correction[0], correction=1):
                     return True
 
                 # "avoid to announce it" - "avoid announcing it"
                 # "try to visit the stadium" - "try visiting the stadium"
-                elif ancestor['token_lemma'] in self.gerund_verbs and \
-                        self.is_infinitive(error_token) and self.is_gerund(correction_token):
+                elif ancestor['token_lemma'] in gerund_verbs and \
+                        not self.is_gerund(token=error_token) and self.is_gerund(correction_token):
                     return True
         return False
 
@@ -604,7 +727,7 @@ class RulesBase:
             # check the first ancestor of the error token
             ancestor_id = error_token['ancestor_list'][0][1]
             ancestor = self.construction_dict[ancestor_id]
-            noun = ancestor['token_pos'] == 'NOUN'
+            noun = ancestor['token_pos'] in ['NOUN', 'PROPN']
             adj = ancestor['token_pos'] == 'ADJ'
             if noun or adj:
                 for correction in self.full_correction.values():
@@ -615,81 +738,62 @@ class RulesBase:
     def check_collective_noun(self, error_token):
         # sport programmes - sports programmes
         # Indonesians workers - Indonesian workers
-        if error_token['token_pos'] == 'NOUN' and len(error_token['ancestor_list']):
+        if error_token['token_pos'] in ['NOUN', 'PROPN'] and len(error_token['ancestor_list']):
             for a in error_token['ancestor_list']:
                 # to check only the nearest dependent noun
                 if a[1] < self.current_token_id + 2 and \
-                        self.construction_dict[a[1]]['token_pos'] == 'NOUN':
+                        self.construction_dict[a[1]]['token_pos'] in ['NOUN', 'PROPN']:
                     return True
         return False
 
-    def check_possessive(self, error_token, correction_token):
+    def check_confusion_structures(self, error_token, correction_token):
         possessive_constr_error, possessive_constr_corr = 0, 0
-
-        apostrophe_error = "'" in error_token['token']
-        apostrophe_corr = "'" in correction_token['token']
-
-        if apostrophe_error != apostrophe_corr:
-            return 1, 1
-
-        if len(error_token['children_list']):
-            for c in error_token['children_list']:
-                if c[0] == 'of':
-                    of = self.construction_dict[c[1]]
-                    if len(of['children_list']):
-                        for cc in of['children_list']:
-                            child = self.construction_dict[cc[1]]
-                            if child['token_pos'] == 'NOUN':
-                                possessive_constr_error = 1
-                                break
-                    if possessive_constr_error:
-                        break
-        if not possessive_constr_error and len(error_token['ancestor_list']):
-            for a in error_token['ancestor_list']:
-                if a[0] == 'of':
-                    of = self.construction_dict[a[1]]
-                    if len(of['ancestor_list']):
-                        for aa in of['ancestor_list']:
-                            ancestor = self.construction_dict[aa[1]]
-                            if ancestor['token_pos'] == 'NOUN':
-                                possessive_constr_error = 1
-                                break
-                    if possessive_constr_error:
-                        break
 
         if len(correction_token['children_list']):
             for c in correction_token['children_list']:
                 if c[0].lower() == 'of':
-                    of = self.full_correction[c[1]]
-                    if len(of['children_list']):
-                        for cc in of['children_list']:
-                            child = self.full_correction[cc[1]]
-                            if child['token_pos'] == 'NOUN':
-                                possessive_constr_corr = 1
-                                break
+                    for token_id, token in self.sentence_tokens.items():
+                        if token_id > self.current_token_id and token_id < self.current_token_id + 5 and \
+                                token['token_pos'] in ['NOUN', 'PROPN'] or self.is_gerund(token):
+                            possessive_constr_corr = 1
+                            break
                     if possessive_constr_corr:
                         break
         if not possessive_constr_corr and len(correction_token['ancestor_list']):
             for a in correction_token['ancestor_list']:
                 if a[0].lower() == 'of':
-                    of = self.full_correction[a[1]]
-                    if len(of['ancestor_list']):
-                        for aa in of['ancestor_list']:
-                            ancestor = self.full_correction[aa[1]]
-                            if ancestor['token_pos'] == 'NOUN':
-                                possessive_constr_corr = 1
-                                break
+                    for token_id, token in self.sentence_tokens.items():
+                        if token_id < self.current_token_id and token_id > self.current_token_id - 5 and \
+                                token['token_pos'] in ['NOUN', 'PROPN'] or self.is_gerund(token):
+                            possessive_constr_corr = 1
+                            break
                     if possessive_constr_corr:
                         break
 
-        if possessive_constr_error != possessive_constr_corr:
-            return 1, 0
+        if possessive_constr_corr:
+            if len(error_token['children_list']):
+                for c in error_token['children_list']:
+                    if c[0] == 'of':
+                        of = self.construction_dict[c[1]]
+                        if len(of['children_list']):
+                            for cc in of['children_list']:
+                                child = self.sentence_tokens[cc[1]]
+                                if child['token_pos'] in ['NOUN', 'PROPN'] or self.is_gerund(child):
+                                    possessive_constr_error = 1
+                                    break
+                        if possessive_constr_error:
+                            break
+            if not possessive_constr_error and len(error_token['ancestor_list']):
+                for a in error_token['ancestor_list']:
+                    if a[0] == 'of' and a[1] > self.current_token_id:
+                        of = self.construction_dict[a[1]]
+                        if len(of['ancestor_list']):
+                            for aa in of['ancestor_list']:
+                                ancestor = self.sentence_tokens[aa[1]]
+                                if ancestor['token_pos'] in ['NOUN', 'PROPN'] or self.is_gerund(ancestor):
+                                    possessive_constr_error = 1
+                                    break
+                        if possessive_constr_error:
+                            break
 
-        return 0, 0
-
-    def check_gerund_noun(self, error_token, correction_token):
-        # "attending of gym" - "attendance of gym"
-        gerund_error = error_token['token'].endswith('ing')
-        gerund_corr = correction_token['token'].endswith('ing')
-        if gerund_error != gerund_corr:
-            return True
+        return possessive_constr_error != possessive_constr_corr

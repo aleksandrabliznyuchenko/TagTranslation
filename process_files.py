@@ -3,20 +3,21 @@ from pathlib import Path
 import time
 
 from preprocessing import preprocess_file
-from test_spacy import SpacyAnalyzer
+from spacy_tokenizer import SpacyTokenizer
 from tag_matcher import TagMatcher
 
 time_start = time.perf_counter()
 
 last_error_id, last_ann_id = 0, 0
 file_num, file_num_total = 0, 0
+used_error_ids = []
 
 text = ''
 
 path = os.path.join(os.getcwd(), r'Essays\Annotations')
 results_folder = os.path.join(os.getcwd(), r'Essays\Results')
 
-nlp = SpacyAnalyzer()
+nlp = SpacyTokenizer()
 matcher = TagMatcher(nlp)
 tags = TagMatcher.tags
 
@@ -37,8 +38,9 @@ def result_txt_lines(orig_lines, idx, sent_idx):
 
 
 def form_new_lines(line1, line2, errors_with_tags, sentences):
-    global last_error_id, last_ann_id
+    global last_error_id, last_ann_id, used_error_ids
     new_lines, result_lines = '', ''
+    new_error = 0
 
     line1_parts = line1.replace('\n', '').split('\t')
     line2_parts = line2.replace('\n', '').split('\t')
@@ -53,6 +55,9 @@ def form_new_lines(line1, line2, errors_with_tags, sentences):
     if len(errors_with_tags[error_id].keys()):
         if ann_tag == 'Capitalisation':
             new_lines += line1 + line2
+            new_error = 1
+            last_error_id += 1
+            last_ann_id += 1
 
         for token in errors_with_tags[error_id].values():
             if type(token) == dict and len(token.keys()):
@@ -61,18 +66,20 @@ def form_new_lines(line1, line2, errors_with_tags, sentences):
                                                  idx=[idx_1, idx_2],
                                                  sent_idx=[sentence['idx_1'], sentence['idx_2']])
 
-                for tag_id, tag in token.items():
+                for tag_idx, tag_id in enumerate(token.keys()):
+                    tag = token[tag_id]
                     ann_tag = tag['tag']
                     error = tag['error_span'][0]
                     idx_1, idx_2 = str(tag['error_span'][1]), str(tag['error_span'][2])
                     correction = tag['correction']
 
-                    if tag_id > 0:
+                    if tag_idx > 0:
+                        new_error = 1
                         last_error_id += 1
                         last_ann_id += 1
 
-                    new_error_id = 'T' + str(last_error_id) if tag_id > 0 else error_id
-                    new_ann_id = '#' + str(last_ann_id) if tag_id > 0 else ann_id
+                    new_error_id = 'T' + str(last_error_id) if new_error else error_id
+                    new_ann_id = '#' + str(last_ann_id) if new_error else ann_id
 
                     new_tag_parts = ' '.join([ann_tag, idx_1, idx_2])
                     new_ann_notes = 'AnnotatorNotes ' + str(new_error_id)
@@ -81,15 +88,17 @@ def form_new_lines(line1, line2, errors_with_tags, sentences):
                     new_line_2 = '\t'.join([new_ann_id, new_ann_notes, correction]) + '\n'
                     new_lines += new_line_1 + new_line_2
                     result_lines += new_line_1 + new_line_2 + '\n'
+                    used_error_ids.append(new_error_id)
 
-    return new_lines, result_lines + '\n'
+    return new_lines, result_lines + '\n' if result_lines != '' else ''
 
 
 def fill_results(errors_with_tags, filename, folder, ann_file, sentences):
-    global file_num_total
-    errors_processed, skip_line = 0, 0
+    global file_num_total, used_error_ids
+    errors_processed, skip_line, max_error = 0, 0, 0
     ann_lines = ''
-    
+    used_error_ids = []
+
     if len(errors_with_tags.keys()):
         last_error_id = list(errors_with_tags.keys())[-1]
         max_error = int(last_error_id[1:])
@@ -108,8 +117,8 @@ def fill_results(errors_with_tags, filename, folder, ann_file, sentences):
         os.remove(output_file_name)
     results_txt = open(output_file_name, 'a', encoding='utf-8')
     results_txt.write('File:   %s\n\n\n' % filename)
-
-    ann_result_filename = Path(os.path.join(current_folder, filename + '_results.ann'))
+    
+    ann_result_filename = Path(os.path.join(current_folder, filename + '.ann'))
     file_to_read = ann_file if not ann_result_filename.exists() else ann_result_filename
 
     with open(file_to_read, 'r', encoding='utf-8') as file:
@@ -130,12 +139,24 @@ def fill_results(errors_with_tags, filename, folder, ann_file, sentences):
                         ann_lines += new_ann_lines
                         skip_line = 1
                         results_txt.write(result_lines)
+                    elif line_id in used_error_ids:
+                        skip_line = 1
                     else:
                         ann_lines += line
                 else:
                     ann_lines += line
             else:
-                ann_lines += line
+                # If we have already edited the annotation file,
+                # we could have added additional lines with error annotations to it.
+                # (we do that when we detect more than one tag suitable for the error)
+                #
+                # When we rewrite the annotation, we form new additional lines and add them to the file.
+                # Thus, we have to skip previously added lines so that we do not have double annotations.
+                line_id = line.replace('\n', '').split('\t')[0]
+                if line_id in used_error_ids:
+                    skip_line = 1
+                else:
+                    ann_lines += line
     file.close()
     results_txt.close()
 
@@ -148,20 +169,18 @@ def match_errors(errors, tokens, sentences, filename, folder, ann_file):
 
     for error_id, error_value in errors.items():
         if 'sentence_id' in error_value.keys():
-            # TODO: добавить рассмотрение случаев, когда система удаляет элемент
-            if error_value['correction'] != 'Delete':
-                error_tokens = {}
-                sent_id = error_value['sentence_id']
+            error_tokens = {}
+            sent_id = error_value['sentence_id']
 
-                for error in error_value['error'].split():
-                    for token_id, token in tokens[sent_id].items():
-                        if 'error' in token.keys() and token['error'] == error_id and token['token'] == error.lower():
-                            error_tokens[token_id] = token
-                error_value['tokens'] = error_tokens
-                sentence_tokens = tokens[error_value['sentence_id']]
+            for error in error_value['error'].split():
+                for token_id, token in tokens[sent_id].items():
+                    if 'error' in token.keys() and token['error'] == error_id and token['token'] == error.lower():
+                        error_tokens[token_id] = token
+            error_value['tokens'] = error_tokens
+            sentence_tokens = tokens[error_value['sentence_id']]
 
-                error_tags = matcher.match_tag(error_record=error_value, sentence_dict=sentence_tokens)
-                errors_with_tags[error_id] = error_tags
+            error_tags = matcher.match_tag(error_record=error_value, sentence_dict=sentence_tokens)
+            errors_with_tags[error_id] = error_tags
 
     fill_results(errors_with_tags, filename, folder, ann_file, sentences)
     return 1
@@ -188,14 +207,21 @@ def process_files():
                             text = text_file.read()
                         text_file.close()
 
-                        errors_dict, tokens_dict, sent_dict, last_ids = preprocess_file(filepath, folder, filename)
-                        if len(errors_dict.keys()):
-                            last_error_id, last_ann_id = last_ids[0], last_ids[1]
+                        try:
+                            errors_dict, tokens_dict, sent_dict, last_ids = preprocess_file(filepath, folder,
+                                                                                            filename)
+                            if len(errors_dict.keys()):
+                                last_error_id, last_ann_id = last_ids[0], last_ids[1]
 
-                            ok = match_errors(errors=errors_dict, tokens=tokens_dict, sentences=sent_dict,
-                                              filename=filename, folder=folder, ann_file=filepath)
-                            if ok:
-                                file_num += 1
+                                ok = match_errors(errors=errors_dict, tokens=tokens_dict, sentences=sent_dict,
+                                                  filename=filename, folder=folder, ann_file=filepath)
+                                if ok:
+                                    file_num += 1
+
+                        except Exception as exc:
+                            with open('logger.txt', 'a') as log:
+                                log.write('File %s: %s' % (file, str(exc)) + '\n\n')
+                                log.close()
 
 
 def contains_mistakes(file):

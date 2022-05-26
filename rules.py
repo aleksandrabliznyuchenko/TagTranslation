@@ -698,13 +698,6 @@ class Rules(RulesBase):
             if tag:
                 return tag
 
-        # if auxiliary "will" is out of error span, we do not have to check the tense
-        # because if there was a problem with the tense, this verb would be included in the error span
-        if self.current_token_id - 1 in self.sentence_tokens.keys():
-            prev_token = self.sentence_tokens[self.current_token_id - 1]
-            if prev_token['token'] == 'will':
-                return None
-
         tag, corr_id = self.check_tense_simple(error_token)
         if tag:
             if tag != 12:

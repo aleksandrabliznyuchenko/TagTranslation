@@ -1,4 +1,4 @@
-# import logging
+import logging
 from dictionaries import infinitive_verbs
 from rules import Rules
 

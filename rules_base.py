@@ -1,11 +1,9 @@
-import re
 from dictionaries import irregular_verbs, pos_dict, infinitive_verbs, gerund_verbs
+import re
 
 
 class RulesBase:
     articles = ['a', 'an', 'the']
-    # as many of quantifiers are annotated as regular adjectives,
-    # the simplest way of identifying them is by making a list of them
     quantifiers = ['much', 'many', 'less', 'few', 'fewer', 'lot']
     relative_conj = ['who', 'whom', 'whose', 'that', 'which', 'when', 'where', 'why']
     coordinating_conj = ['and', 'or', 'nor', 'but', 'either', 'neither']
@@ -155,17 +153,17 @@ class RulesBase:
                     return False if missing else True
 
             # comma for relative clauses
-            elif mode == 8:
-                if correction['token_pos'] == 'PUNCT' and correction['token'] == ',':
-                    # ", which"
-                    if corr_id + 1 in self.full_correction.keys():
-                        right_token = self.full_correction[corr_id + 1]
-                        if right_token['token'].lower() in self.relative_conj:
-                            return False if missing else True
-                    # " , which is important for the international trade, "
-                    for token_id, token in self.sentence_tokens.items():
-                        if token_id < corr_id and token['token'].lower() in self.relative_conj:
-                            return False if missing else True
+            # elif mode == 8:
+            #     if correction['token_pos'] == 'PUNCT' and correction['token'] == ',':
+            #         # ", which"
+            #         if corr_id + 1 in self.full_correction.keys():
+            #             right_token = self.full_correction[corr_id + 1]
+            #             if right_token['token'].lower() in self.relative_conj:
+            #                 return False if missing else True
+            #         # " , which is important for the international trade, "
+            #         for token_id, token in self.sentence_tokens.items():
+            #             if token_id < corr_id and token['token'].lower() in self.relative_conj:
+            #                 return False if missing else True
 
             # determiners
             elif mode == 9:
@@ -233,17 +231,17 @@ class RulesBase:
                         return False if missing else True
 
                 # comma for relative clauses
-                elif mode == 8:
-                    if error_token['token_pos'] == 'PUNCT' and error_token['token'] == ',':
-                        # ", which"
-                        if error_id + 1 in self.construction_dict.keys():
-                            right_token = self.construction_dict[error_id + 1]
-                            if right_token['token'].lower() in self.relative_conj:
-                                return False if missing else True
-                        # " , which is important for the international trade, "
-                        for token_id, token in self.sentence_tokens.items():
-                            if token_id < error_id and token['token'].lower() in self.relative_conj:
-                                return False if missing else True
+                # elif mode == 8:
+                #     if error_token['token_pos'] == 'PUNCT' and error_token['token'] == ',':
+                #         # ", which"
+                #         if error_id + 1 in self.construction_dict.keys():
+                #             right_token = self.construction_dict[error_id + 1]
+                #             if right_token['token'].lower() in self.relative_conj:
+                #                 return False if missing else True
+                #         # " , which is important for the international trade, "
+                #         for token_id, token in self.sentence_tokens.items():
+                #             if token_id < error_id and token['token'].lower() in self.relative_conj:
+                #                 return False if missing else True
 
                 # determiners
                 elif mode == 9:
@@ -348,25 +346,33 @@ class RulesBase:
                             if ancestor in ['ADJ', 'ADV']:
                                 token = ancestor
 
-                    if token['token_pos'] in ['ADJ', 'ADV'] and len(token['ancestor_list']):
-                        for a in token['ancestor_list']:
-                            ancestor = self.sentence_tokens[a[1]]
-                            if ancestor['token_pos'] in ['VERB', 'AUX'] and a[1] > self.current_token_id and \
-                                    len(ancestor['ancestor_list']):
-                                for aa in ancestor['ancestor_list']:
-                                    ancestor_anc = self.sentence_tokens[aa[1]]
-                                    if ancestor_anc['token_pos'] in ['VERB', 'AUX'] and len(token['children_list']):
-                                        for c in token['children_list']:
-                                            child = self.sentence_tokens[c[1]]
-                                            if child['token_pos'] == 'ADJ':
-                                                if self.is_comparative(child):
-                                                    return True
-                                                elif len(child['children_list']):
-                                                    for cc in child['children_list']:
-                                                        child_child = self.sentence_tokens[cc[1]]
-                                                        if child['token_pos'] == 'ADV' and \
-                                                                self.is_comparative(child_child):
-                                                            return [True]
+                    if token['token_pos'] in ['ADJ', 'ADV'] and len(token['children_list']):
+                        for c in token['children_list']:
+                            if c[0].lower() == 'the' and len(token['ancestor_list']):
+                                for a in token['ancestor_list']:
+                                    ancestor = self.sentence_tokens[a[1]]
+                                    if ancestor['token_pos'] in ['VERB', 'AUX'] and a[1] > self.current_token_id and \
+                                            len(ancestor['ancestor_list']):
+                                        for aa in ancestor['ancestor_list']:
+                                            ancestor_anc = self.sentence_tokens[aa[1]]
+                                            if ancestor_anc['token_pos'] in ['VERB', 'AUX'] and len(
+                                                    token['children_list']):
+                                                for c in token['children_list']:
+                                                    child = self.sentence_tokens[c[1]]
+                                                    if child['token_pos'] == 'ADJ':
+                                                        if self.is_comparative(child) and len(child['children_list']):
+                                                            for cc in child['children_list']:
+                                                                if cc[0] == 'the':
+                                                                    return True
+                                                        elif len(child['children_list']):
+                                                            for cc in child['children_list']:
+                                                                child_child = self.sentence_tokens[cc[1]]
+                                                                if child_child['token_pos'] == 'ADV' and \
+                                                                        self.is_comparative(child_child):
+                                                                    for ccc in child['children_list']:
+                                                                        if ccc[0] == 'the':
+                                                                            return [True]
+                                                                    break
         else:
             for token_id, token in self.full_correction.items():
                 # "as ... as"
@@ -406,28 +412,37 @@ class RulesBase:
                             if ancestor in ['ADJ', 'ADV']:
                                 token = ancestor
 
-                    if token['token_pos'] in ['ADJ', 'ADV'] and len(token['ancestor_list']):
-                        for a in token['ancestor_list']:
-                            ancestor = self.full_correction[a[1]]
-                            if ancestor['token_pos'] in ['VERB', 'AUX'] and a[1] > self.current_token_id and \
-                                    len(ancestor['ancestor_list']):
-                                for aa in ancestor['ancestor_list']:
-                                    if aa[1] in self.full_correction.keys():
-                                        ancestor_anc = self.full_correction[aa[1]]
-                                        if ancestor_anc['token_pos'] in ['VERB', 'AUX'] and len(
-                                                token['children_list']):
-                                            for c in token['children_list']:
-                                                child = self.full_correction[c[1]]
-                                                if child['token_pos'] == 'ADJ':
-                                                    if self.is_comparative(child):
-                                                        return True
-                                                    elif len(child['children_list']):
-                                                        for cc in child['children_list']:
-                                                            if cc[1] in self.full_correction.keys():
-                                                                child_child = self.full_correction[cc[1]]
-                                                                if child['token_pos'] == 'ADV' and \
-                                                                        self.is_comparative(child_child):
-                                                                    return [True]
+                    if token['token_pos'] in ['ADJ', 'ADV'] and len(token['children_list']):
+                        for c in token['children_list']:
+                            if c[0].lower() == 'the' and len(token['ancestor_list']):
+                                for a in token['ancestor_list']:
+                                    ancestor = self.full_correction[a[1]]
+                                    if ancestor['token_pos'] in ['VERB', 'AUX'] and a[1] > self.current_token_id and \
+                                            len(ancestor['ancestor_list']):
+                                        for aa in ancestor['ancestor_list']:
+                                            if aa[1] in self.full_correction.keys():
+                                                ancestor_anc = self.full_correction[aa[1]]
+                                                if ancestor_anc['token_pos'] in ['VERB', 'AUX'] and len(
+                                                        token['children_list']):
+                                                    for cc in token['children_list']:
+                                                        child = self.full_correction[cc[1]]
+                                                        if child['token_pos'] == 'ADJ':
+                                                            if self.is_comparative(child) and len(
+                                                                    child['children_list']
+                                                            ):
+                                                                for cc in child['children_list']:
+                                                                    if cc[0].lower() == 'the':
+                                                                        return True
+                                                            elif len(child['children_list']):
+                                                                for cc in child['children_list']:
+                                                                    if cc[1] in self.full_correction.keys():
+                                                                        child_child = self.full_correction[cc[1]]
+                                                                        if child_child['token_pos'] == 'ADV' and \
+                                                                                self.is_comparative(child_child):
+                                                                            for ccc in child['children_list']:
+                                                                                if ccc[0].lower() == 'the':
+                                                                                    return [True]
+                                                                            break
         return [False]
 
     def allow_check_agreement(self):
@@ -494,14 +509,14 @@ class RulesBase:
             if num_token in token['token_lemma']:
                 return True
 
-            # "fourth", "fifth", "tenth", "thirteenth", "nineteenth", "twentieth" etc.
-            if token['token_lemma'].endswith('teenth') or token['token_lemma'].endswith('tieth'):
-                return True
-            if token['token_lemma'].endswith('th'):
-                base = token['token_lemma'][:-2]
-                for form in self.numeral_forms:
-                    if base.endswith(form):
-                        return True
+        # "fourth", "fifth", "tenth", "thirteenth", "nineteenth", "twentieth" etc.
+        if token['token_lemma'].endswith('teenth') or token['token_lemma'].endswith('tieth'):
+            return True
+        if token['token_lemma'].endswith('th'):
+            base = token['token_lemma'][:-2]
+            for form in self.numeral_forms:
+                if base.endswith(form):
+                    return True
 
     def is_comparative(self, token):
         degree = token['token_morph'].get('Degree')

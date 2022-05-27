@@ -8,6 +8,7 @@ from spacy_tokenizer import SpacyTokenizer
 nlp = SpacyTokenizer()
 
 error_tags = ["gram", "vocab", "comp"]
+causes_num = 0
 
 temporary_folder = os.path.join(os.getcwd(), r'Essays\Temporary')
 results_folder = os.path.join(os.getcwd(), r'Essays\Results')
@@ -96,8 +97,10 @@ def is_token(line_parts):
 
 
 def ann_file_to_dicts(file):
+    global causes_num
     errors_dict, tokens_dict = {}, {}
     error_last_id, token_last_id = 0, 0
+    delete_id = 0
 
     with open(file, 'r', encoding='utf-8', newline='') as f:
         for line1, line2 in itertools.zip_longest(*[f] * 2):
@@ -109,7 +112,10 @@ def ann_file_to_dicts(file):
             else:
                 error_id, token_id = line1_parts[0], line1_parts[0]
             error_last_id = int(error_id[1:]) if int(error_id[1:]) > error_last_id else error_last_id
-            token_last_id = int(token_id[1:]) if int(token_id[1:]) > token_last_id else token_last_id
+            if token_id[0] == 'A':
+                delete_id = int(token_id[1:]) if int(token_id[1:]) > delete_id else delete_id
+            else:
+                token_last_id = int(token_id[1:]) if int(token_id[1:]) > token_last_id else token_last_id
 
             if is_error(line1_parts):
                 errors_dict[error_id] = fill_errors_dict(line1_parts, line2_parts)
@@ -119,7 +125,7 @@ def ann_file_to_dicts(file):
                 tokens_dict[int(token_id[1:])] = fill_file_dict(line1_parts, line2_parts)
                 token_last_id = int(token_id[1:]) if int(token_id[1:]) > token_last_id else token_last_id
 
-    return errors_dict, tokens_dict, [error_last_id, token_last_id]
+    return errors_dict, tokens_dict, [error_last_id, token_last_id, delete_id + causes_num]
 
 
 def error_in_sentence(errors_dict, sent_id, sent_idx):
@@ -156,6 +162,8 @@ def derive_sentences(tokens_dict, errors_dict):
     return sentences, errors_dict
 
 
+# на данном этапе берем каждое слово в области ошибки, ищем его аналог из области исправления по индексу слова и сравниваем регистры
+# хотя надо бы искать в области исправления слово с такой же леммой и так далее
 def check_capitalisation(error, correction):
     for i, word in enumerate(error.split()):
         if word.isalpha() and len(correction.split()) >= i + 1:
@@ -197,6 +205,7 @@ def normalise(file_txt, errors, sentences):
 
 
 def first_tokens(tokens_dict, sent_dict):
+    # first_token_idx = [sent['idx_1'] for sent in sent_dict.values()]
     first_token_idx = [sent_idx[0] for sent_idx in sent_dict.values()]
     tokens = []
 
@@ -236,14 +245,15 @@ def combine_two_dicts(tokens, spacy_dict, tokens_dict, errors_dict):
     return total_dict
 
 
-def process_normal_file(ann_file, txt_file, filename, folder):
-    total_dict, sent_dict = {}, {}
+def process_normal_file(ann_file, txt_file):
+    total_dict, sent_dict, capitals = {}, {}, {}
     errors_dict, tokens_dict, last_ids = ann_file_to_dicts(ann_file)
 
     if len(errors_dict.keys()) != 0:
         sentences_data, errors_dict = derive_sentences(tokens_dict, errors_dict)
         tokens = first_tokens(tokens_dict, sentences_data)
         text, capitals, updated_sent_data = normalise(txt_file, errors_dict, copy.deepcopy(sentences_data))
+        # text, capitals = normalise(txt_file, errors_dict)
 
         # combine the dict of tokens with dict of spaCy tokens
         spacy_text_dict, sent_dict = nlp.spacy_dict(text, updated_sent_data)
@@ -253,10 +263,10 @@ def process_normal_file(ann_file, txt_file, filename, folder):
             sent_dict[sent_id]['idx_1'] = sentences_data[sent_id][0]
             sent_dict[sent_id]['idx_2'] = sentences_data[sent_id][1]
 
-        if len(capitals.keys()) != 0:
-            capitalisation_to_result_file(capitals, filename, folder, ann_file)
+        # if len(capitals.keys()) != 0:
+        #     capitalisation_to_result_file(capitals, filename, folder, ann_file)
 
-    return errors_dict, total_dict, sent_dict, last_ids
+    return errors_dict, total_dict, sent_dict, last_ids, capitals
 
 
 def capitalisation_to_result_file(errors, filename, folder, ann_file):
@@ -294,6 +304,7 @@ def capitalisation_to_result_file(errors, filename, folder, ann_file):
 
 
 def create_tmp_file(filename, ann_file):
+    global causes_num
     comment_pattern = re.compile(r"Cause T\d.*?")
 
     if not os.path.exists(temporary_folder):
@@ -306,20 +317,28 @@ def create_tmp_file(filename, ann_file):
                 line_part = line.split('\t')[-1]
                 if not re.match(comment_pattern, line_part) and not "Dependent_change" in line_part:
                     tmp_file.write(line)
+                elif re.match(comment_pattern, line_part):
+                    causes_num += 1
     return new_file
 
 
 def preprocess_file(file, folder, filename):
+    global causes_num
+    causes_num = 0
+
     file_txt = file.split('.')[0] + '.txt'
 
     # file without additional comments
     if is_normal(file):
-        errors_dict, tokens_dict, sent_dict, last_ids = process_normal_file(file, file_txt, filename, folder)
+        errors_dict, tokens_dict, sent_dict, last_ids, capitals = process_normal_file(file, file_txt)
 
     # file with additional comments
     else:
         tmp_file = create_tmp_file(filename, file)
-        errors_dict, tokens_dict, sent_dict, last_ids = process_normal_file(tmp_file, file_txt, filename, folder)
+        errors_dict, tokens_dict, sent_dict, last_ids, capitals = process_normal_file(tmp_file, file_txt)
         os.remove(tmp_file)
+
+    if len(capitals.keys()) != 0:
+        capitalisation_to_result_file(capitals, filename, folder, file)
 
     return errors_dict, tokens_dict, sent_dict, last_ids

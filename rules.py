@@ -134,10 +134,6 @@ class Rules(RulesBase):
         else:
             corr_id, corr_token = self.span.token_in_correction(mode=9, missing=False)
             if len(corr_token.keys()) and self.token_in_error(mode=9, missing=True):
-                # error_id, error_token = self.token_in_error_token(mode=9)
-                # if len(error_token.keys()) and corr_token['token_lemma'] != error_token['token_lemma']:
-                #     self.span.current_token_id = error_id
-                #     self.error_span = [error_token['token'], error_token['idx_1'], error_token['idx_2']]
                 self.correction_span = corr_token['token']
                 return 4  # Determiners
 
@@ -618,7 +614,7 @@ class Rules(RulesBase):
         #
         # for example, "have chosen" - "chose" (2 tokens in the error (analytical predicate), 1 token in the correction)
         # "chose" - "have chosen" (1 token in the error - 2 tokens in the correction)
-        # (had) "been broken" - (had) "broken" (part of auxiliary construction in the error span and participle in the correction),
+        # (had) "been breaking" - (had) "broken" (part of auxiliary construction in the error span and participle in the correction),
         #
         # so we firstly look for auxiliary verb and take grammatical information from it
         for corr_id, correction in self.correction.items():

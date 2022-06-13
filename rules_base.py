@@ -750,16 +750,16 @@ class RulesBase:
                         return True
         return False
 
-    def check_collective_noun(self, error_token):
-        # sport programmes - sports programmes
-        # Indonesians workers - Indonesian workers
-        if error_token['token_pos'] in ['NOUN', 'PROPN'] and len(error_token['ancestor_list']):
-            for a in error_token['ancestor_list']:
-                # to check only the nearest dependent noun
-                if a[1] < self.current_token_id + 2 and \
-                        self.construction_dict[a[1]]['token_pos'] in ['NOUN', 'PROPN']:
-                    return True
-        return False
+    # def check_collective_noun(self, error_token):
+    #     # sport programmes - sports programmes
+    #     # Indonesians workers - Indonesian workers
+    #     if error_token['token_pos'] in ['NOUN', 'PROPN'] and len(error_token['ancestor_list']):
+    #         for a in error_token['ancestor_list']:
+    #             # to check only the nearest dependent noun
+    #             if a[1] < self.current_token_id + 2 and \
+    #                     self.construction_dict[a[1]]['token_pos'] in ['NOUN', 'PROPN']:
+    #                 return True
+    #     return False
 
     def check_confusion_structures(self, error_token, correction_token):
         possessive_constr_error, possessive_constr_corr = 0, 0

@@ -30,7 +30,7 @@ class TagMatcher:
         23: "Conjunctions",
         # 24: "Adjectives",
         25: "Prepositional_adjective",
-        26: "Adj_as_collective",
+        # 26: "Adj_as_collective",
         27: "Adverbs",
         28: "Prepositional_adv",
         29: "Comparison_degree",
@@ -507,7 +507,6 @@ class TagMatcher:
                     # Conflicting tags that cannot be assigned to the same construction
                     # Quantifiers (6) and Degree of comparison (29): "more modern"
                     # Relative clauses (34), Pronouns (31) and Conjunctions (23): "who", "which", "that"
-                    # Possessive form of noun (19) and Adj as collective noun (26): "people health" - "people's health"
                     # Comparative construction (37) and Choice of lexical item (40): "comparing with" - "compared to"
                     # Confusion of category (44) and Choice of lexical item (40): "sponsorship" - "sponsoring"
                     if tag:
@@ -515,7 +514,6 @@ class TagMatcher:
                                 not (tag == 6 and 29 in match) and \
                                 not (tag == 23 and 34 in match) and \
                                 not (tag == 31 and 23 in match) and \
-                                not (tag == 26 and 19 in match) and \
                                 not (tag == 40 and 37 in match) and \
                                 not (tag == 40 and 44 in match):
                             match.append(tag)
@@ -551,7 +549,6 @@ class TagMatcher:
                                                        tokens=error_record['tokens'])
                 if not error_token and not ((self.rules.is_gerund(token) or
                                              token['token_pos'] in ['NOUN', 'PROPN']) and 44 in match) \
-                        and not (token['token_pos'] in ['NOUN', 'ADJ'] and 26 in match) \
                         and not (token['token'] == 'as' and 37 in match):
                     if token['token_pos'] in ['VERB', 'AUX'] or token['token'] == 'to':
                         error_verb_id, error_verb = self.verb_in_error(last_error_id, sentence_dict)

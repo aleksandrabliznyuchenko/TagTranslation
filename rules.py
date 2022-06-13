@@ -972,9 +972,9 @@ class Rules(RulesBase):
                 if error_token['token_lemma'] == 'percent':
                     self.error_span, self.correction_span = self.span.numerals_span(error_token)
                 return 30  # Numerals
-            if self.check_collective_noun(error_token):
-                self.error_span = [self.full_error['error'], self.full_error['idx_1'], self.full_error['idx_2']]
-                return 26  # Adjective as a collective noun
+            # if self.check_collective_noun(error_token):
+            #     self.error_span = [self.full_error['error'], self.full_error['idx_1'], self.full_error['idx_2']]
+            #     return 26  # Adjective as a collective noun
             return 21  # Noun number
 
     def check_noun_gerund(self, error_token, correction_token):

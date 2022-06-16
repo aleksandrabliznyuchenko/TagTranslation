@@ -451,33 +451,36 @@ class ErrorSpan(RulesBase):
                             break
 
             # prepositional noun
-            elif tag == 18 and len(preposition['children_list']):
-                for c in preposition['children_list']:
-                    child = self.full_correction[c[1]]
-                    if child['token_pos'] == 'NOUN' and child['token_lemma'] in prepositional_nouns.keys():
-                        prep_noun = prepositional_nouns[child['token_lemma']]
+            elif tag == 18 and len(preposition['ancestor_list']):
+                for a in preposition['ancestor_list']:
+                    ancestor = self.full_correction[a[1]]
+                    if ancestor['token_pos'] == 'NOUN' and ancestor[
+                        'token_lemma'] in prepositional_nouns.keys():
+                        prep_noun = prepositional_nouns[ancestor['token_lemma']]
                         if (type(prep_noun) != str and preposition['token'].lower() in prep_noun) or \
                                 prep_noun == preposition['token'].lower():
-                            token_id_match, token_match = self.match_error_token(child, c[1], mode=1)
+                            token_id_match, token_match = self.match_error_token(ancestor, a[1], mode=1)
                             if len(token_match.keys()):
                                 error[token_id_match] = token_match
                                 if len(error_prep):
                                     error[error_prep[0]] = error_prep[1]
-                                    if token_id_match < error_prep[0] and token_id_match != error_prep[0] - 1:
+                                    if token_id_match < error_prep[0] and token_id_match != error_prep[
+                                        0] - 1:
                                         for token_id, token in self.sentence_tokens.items():
                                             if token_id > token_id_match and token_id < error_prep[0]:
                                                 error[token_id] = token
                                             elif token_id > error_prep[0]:
                                                 break
-                                    elif token_id_match > error_prep[0] and token_id_match != error_prep[0] + 1:
+                                    elif token_id_match > error_prep[0] and token_id_match != error_prep[
+                                        0] + 1:
                                         for token_id, token in self.sentence_tokens.items():
                                             if token_id < token_id_match and token_id > error_prep[0]:
                                                 error[token_id] = token
                                             elif token_id > token_id_match:
                                                 break
-                                elif corr_prep[0] < c[1]:
+                                elif corr_prep[0] < a[1]:
                                     correction_text += corr_prep[1]['token']
-                                elif corr_prep[0] > c[1]:
+                                elif corr_prep[0] > a[1]:
                                     corr_prep_at_end = 1
                             break
             # prepositional adjective

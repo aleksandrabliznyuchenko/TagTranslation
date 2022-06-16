@@ -202,37 +202,47 @@ class Rules(RulesBase):
                     for c in error_token['children_list']:
                         if c[1] in self.construction_dict.keys():
                             child = self.construction_dict[c[1]]
-                            if child['token_pos'] in ['NOUN', 'PROPN'] or self.is_gerund(child):
-                                if child['token_lemma'] in prepositional_nouns.keys():
-                                    prep_noun = prepositional_nouns[child['token_lemma']]
-                                    if (type(prep_noun) != str and correction_match['token'].lower() in prep_noun) or \
-                                            prep_noun == correction_match['token'].lower():
-                                        self.error_span, self.correction_span = self.span.prepositions_span(
-                                            [self.current_token_id, error_token],
-                                            [corr_id, correction_match], 18
-                                        )
-                                        return 18  # Prepositional noun
-                                # "for borrowing or buying" - "for borrowing or for buying"
-                                # we look for a similar prepositional construction in the previous context
-                                if self.is_gerund(child) and len(child['ancestor_list']):
-                                    for a in child['ancestor_list']:
-                                        if a[1] != self.current_token_id and a[0] == correction_match['token']:
-                                            ancestor = self.sentence_tokens[a[1]]
-                                            if len(ancestor['children_list']):
-                                                for cc in ancestor['children_list']:
-                                                    child_child = self.sentence_tokens[cc[1]]
-                                                    if self.is_gerund(child_child) and cc[1] != c[1]:
-                                                        self.error_span, self.correction_span = \
-                                                            self.span.prepositions_span(
-                                                                [self.current_token_id, error_token],
-                                                                [corr_id, correction_match], 35
-                                                            )
-                                                        return 35  # Parallel constructions
+                            # if child['token_pos'] in ['NOUN', 'PROPN'] or self.is_gerund(child):
+                            # if child['token_lemma'] in prepositional_nouns.keys():
+                            #     prep_noun = prepositional_nouns[child['token_lemma']]
+                            #     if (type(prep_noun) != str and correction_match['token'].lower() in prep_noun) or \
+                            #             prep_noun == correction_match['token'].lower():
+                            #         self.error_span, self.correction_span = self.span.prepositions_span(
+                            #             [self.current_token_id, error_token],
+                            #             [corr_id, correction_match], 18
+                            #         )
+                            #         return 18  # Prepositional noun
+
+                            # "for borrowing or buying" - "for borrowing or for buying"
+                            # we look for a similar prepositional construction in the previous context
+                            if self.is_gerund(child) and len(child['ancestor_list']):
+                                for a in child['ancestor_list']:
+                                    if a[1] != self.current_token_id and a[0] == correction_match['token']:
+                                        ancestor = self.sentence_tokens[a[1]]
+                                        if len(ancestor['children_list']):
+                                            for cc in ancestor['children_list']:
+                                                child_child = self.sentence_tokens[cc[1]]
+                                                if self.is_gerund(child_child) and cc[1] != c[1]:
+                                                    self.error_span, self.correction_span = \
+                                                        self.span.prepositions_span(
+                                                            [self.current_token_id, error_token],
+                                                            [corr_id, correction_match], 35
+                                                        )
+                                                    return 35  # Parallel constructions
                 if len(error_token['ancestor_list']):
                     for a in error_token['ancestor_list']:
                         if a[1] in self.construction_dict.keys():
                             ancestor = self.construction_dict[a[1]]
-                            if ancestor['token_pos'] == 'ADJ' and ancestor['token_lemma'] in prepositional_adj:
+                            if ancestor['token_pos'] == 'NOUN' and ancestor['token_lemma'] in prepositional_nouns:
+                                prep_noun = prepositional_nouns[ancestor['token_lemma']]
+                                if (type(prep_noun) != str and correction_match['token'].lower() in prep_noun) or \
+                                        prep_noun == correction_match['token'].lower():
+                                    self.error_span, self.correction_span = self.span.prepositions_span(
+                                        [self.current_token_id, error_token],
+                                        [corr_id, correction_match], 18
+                                    )
+                                    return 18  # Prepositional noun
+                            elif ancestor['token_pos'] == 'ADJ' and ancestor['token_lemma'] in prepositional_adj:
                                 prep_adj = prepositional_adj[ancestor['token_lemma']]
                                 if (type(prep_adj) != str and correction_match['token'].lower() in prep_adj) or \
                                         prep_adj == correction_match['token'].lower():
@@ -278,40 +288,50 @@ class Rules(RulesBase):
                         for c in error_prep['children_list']:
                             if c[1] in self.construction_dict.keys():
                                 child = self.construction_dict[c[1]]
-                                if child['token_pos'] in ['NOUN', 'PROPN'] or self.is_gerund(child):
-                                    if child['token_lemma'] in prepositional_nouns.keys():
-                                        prep_noun = prepositional_nouns[child['token_lemma']]
-                                        if (type(prep_noun) != str and correction_match[
-                                            'token'].lower() in prep_noun) or \
-                                                prep_noun == correction_match['token'].lower():
-                                            self.span.current_token_id = error_prep_id
-                                            self.error_span, self.correction_span = self.span.prepositions_span(
-                                                [error_prep_id, error_prep],
-                                                [corr_id, correction_match], 18
-                                            )
-                                            return 18  # Prepositional noun
-                                    # "for borrowing or buying" - "for borrowing or for buying"
-                                    # we look for a similar prepositional construction in the previous context
-                                    if self.is_gerund(child) and len(child['ancestor_list']):
-                                        for a in child['ancestor_list']:
-                                            if a[1] != error_prep_id and a[0] == correction_match['token']:
-                                                ancestor = self.sentence_tokens[a[1]]
-                                                if len(ancestor['children_list']):
-                                                    for cc in ancestor['children_list']:
-                                                        child_child = self.sentence_tokens[cc[1]]
-                                                        if self.is_gerund(child_child) and cc[1] != c[1]:
-                                                            self.span.current_token_id = error_prep_id
-                                                            self.error_span, self.correction_span = \
-                                                                self.span.prepositions_span(
-                                                                    [error_prep_id, error_prep],
-                                                                    [corr_id, correction_match], 35
-                                                                )
-                                                            return 35  # Parallel constructions
+                                # if child['token_pos'] in ['NOUN', 'PROPN'] or self.is_gerund(child):
+                                #     if child['token_lemma'] in prepositional_nouns.keys():
+                                #         prep_noun = prepositional_nouns[child['token_lemma']]
+                                #         if (type(prep_noun) != str and correction_match[
+                                #             'token'].lower() in prep_noun) or \
+                                #                 prep_noun == correction_match['token'].lower():
+                                #             self.span.current_token_id = error_prep_id
+                                #             self.error_span, self.correction_span = self.span.prepositions_span(
+                                #                 [error_prep_id, error_prep],
+                                #                 [corr_id, correction_match], 18
+                                #             )
+                                #             return 18  # Prepositional noun
+
+                                # "for borrowing or buying" - "for borrowing or for buying"
+                                # we look for a similar prepositional construction in the previous context
+                                if self.is_gerund(child) and len(child['ancestor_list']):
+                                    for a in child['ancestor_list']:
+                                        if a[1] != error_prep_id and a[0] == correction_match['token']:
+                                            ancestor = self.sentence_tokens[a[1]]
+                                            if len(ancestor['children_list']):
+                                                for cc in ancestor['children_list']:
+                                                    child_child = self.sentence_tokens[cc[1]]
+                                                    if self.is_gerund(child_child) and cc[1] != c[1]:
+                                                        self.span.current_token_id = error_prep_id
+                                                        self.error_span, self.correction_span = \
+                                                            self.span.prepositions_span(
+                                                                [error_prep_id, error_prep],
+                                                                [corr_id, correction_match], 35
+                                                            )
+                                                        return 35  # Parallel constructions
                     if len(error_prep['ancestor_list']):
                         for a in error_prep['ancestor_list']:
                             if a[1] in self.construction_dict.keys():
                                 ancestor = self.construction_dict[a[1]]
-                                if ancestor['token_pos'] == 'ADJ' and ancestor['token_lemma'] in prepositional_adj:
+                                if ancestor['token_pos'] == 'NOUN' and ancestor['token_lemma'] in prepositional_nouns:
+                                    prep_noun = prepositional_nouns[ancestor['token_lemma']]
+                                    if (type(prep_noun) != str and correction_match['token'].lower() in prep_noun) or \
+                                            prep_noun == correction_match['token'].lower():
+                                        self.error_span, self.correction_span = self.span.prepositions_span(
+                                            [self.current_token_id, error_token],
+                                            [corr_id, correction_match], 18
+                                        )
+                                        return 18  # Prepositional noun
+                                elif ancestor['token_pos'] == 'ADJ' and ancestor['token_lemma'] in prepositional_adj:
                                     prep_adj = prepositional_adj[ancestor['token_lemma']]
                                     if (type(prep_adj) != str and correction_match['token'].lower() in prep_adj) or \
                                             prep_adj == correction_match['token'].lower():
@@ -389,30 +409,31 @@ class Rules(RulesBase):
                     if len(preposition['children_list']) and preposition['token'] != 'down':
                         for c in preposition['children_list']:
                             child = self.full_correction[c[1]]
-                            if child['token_pos'] in ['NOUN', 'PROPN'] or self.is_gerund(child):
-                                if child['token_lemma'] in prepositional_nouns.keys():
-                                    prep_noun = prepositional_nouns[child['token_lemma']]
-                                    if (type(prep_noun) != str and preposition['token'].lower() in prep_noun) or \
-                                            prep_noun == preposition['token'].lower():
-                                        self.error_span, self.correction_span = self.span.prepositions_span(
-                                            [], [prep_id, preposition], 18
-                                        )
-                                        return 18  # Prepositional noun
-                                # "for borrowing or buying" - "for borrowing or for buying"
-                                # we look for a similar prepositional construction in the previous context
-                                if self.is_gerund(child) and len(child['ancestor_list']):
-                                    for a in child['ancestor_list']:
-                                        if a[1] != prep_id and a[0] == preposition['token']:
-                                            ancestor = self.full_correction[a[1]]
-                                            if len(ancestor['children_list']):
-                                                for cc in ancestor['children_list']:
-                                                    child_child = self.full_correction[cc[1]]
-                                                    if self.is_gerund(child_child) and cc[1] != c[1]:
-                                                        self.error_span, self.correction_span = \
-                                                            self.span.prepositions_span(
-                                                                [], [prep_id, preposition], 35
-                                                            )
-                                                        return 35  # Parallel constructions
+                            # if child['token_pos'] in ['NOUN', 'PROPN'] or self.is_gerund(child):
+                            #     if child['token_lemma'] in prepositional_nouns.keys():
+                            #         prep_noun = prepositional_nouns[child['token_lemma']]
+                            #         if (type(prep_noun) != str and preposition['token'].lower() in prep_noun) or \
+                            #                 prep_noun == preposition['token'].lower():
+                            #             self.error_span, self.correction_span = self.span.prepositions_span(
+                            #                 [], [prep_id, preposition], 18
+                            #             )
+                            #             return 18  # Prepositional noun
+                            
+                            # "for borrowing or buying" - "for borrowing or for buying"
+                            # we look for a similar prepositional construction in the previous context
+                            if self.is_gerund(child) and len(child['ancestor_list']):
+                                for a in child['ancestor_list']:
+                                    if a[1] != prep_id and a[0] == preposition['token']:
+                                        ancestor = self.full_correction[a[1]]
+                                        if len(ancestor['children_list']):
+                                            for cc in ancestor['children_list']:
+                                                child_child = self.full_correction[cc[1]]
+                                                if self.is_gerund(child_child) and cc[1] != c[1]:
+                                                    self.error_span, self.correction_span = \
+                                                        self.span.prepositions_span(
+                                                            [], [prep_id, preposition], 35
+                                                        )
+                                                    return 35  # Parallel constructions
                     self.correction_span = error_token['token'] + ' ' + preposition['token']
                     return 22  # Prepositions
 
